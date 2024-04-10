@@ -160,7 +160,7 @@ var GenerarHTML = /** @class */ (function () {
         contenido += "<br />";
         contenido += this.g.dameTextBox("idMineral", "Identificativo");
         contenido += this.g.dameTextBox("nombre", "Nombre");
-        contenido += this.g.dameComboBox("grupo_origen", "Grupo/Origen", ["Ígneas", "Metamórficas", "Sedimentarias"]);
+        contenido += this.g.dameComboBox("grupo_origen", "Grupo/Origen", ["Ígneas", "Metamórficas", "Sedimentaria"]);
         contenido += this.g.dameNumberBox("dureza", "Dureza");
         contenido += this.g.dameNumberBox("tam_grano", "Tamaño grano (mm)");
         contenido += this.g.dameComboBox("clasificacion", "Clasificación", ["Rocas de construcción", "Rocas ornamentales", "Rocas de uso en utensilios", "Piedras machacadas"]);
@@ -284,7 +284,7 @@ function valida() {
     var _rojo = document.getElementById("rojo");
     if (ValidadorMineral.isValid(MiMineral)) {
         if (_verde != null) {
-            _verde.innerHTML = "<img src=\"img/feliz.webp\" />" + Mostrador.dameContenido(MiMineral).toString();
+            _verde.innerHTML = "<img src=\"img/feliz.webp\" width=\"100\" />" + Mostrador.dameContenido(MiMineral).toString();
         }
         if (_rojo != null) {
             _rojo.innerHTML = "";
@@ -292,7 +292,7 @@ function valida() {
     }
     else {
         if (_rojo != null) {
-            _rojo.innerHTML = "<img src=\"img/enfadado.png\" />" + Mostrador.dameContenido(MiMineral).toString();
+            _rojo.innerHTML = "<img src=\"img/enfadado.png\" width=\"100\" />" + Mostrador.dameContenido(MiMineral).toString();
         }
         if (_verde != null) {
             _verde.innerHTML = "";
