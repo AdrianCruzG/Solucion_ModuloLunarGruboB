@@ -18,7 +18,7 @@ var configuradorEspanolPC = /** @class */ (function () {
     function configuradorEspanolPC() {
     }
     configuradorEspanolPC.prototype.dameGenerador = function () {
-        return new GenerarHTML(new HTMLBootStrapPC());
+        return new GenerarHTML(new HTMLBootStrapMovil());
     };
     configuradorEspanolPC.prototype.dameCreador = function () {
         return new CreadorHTML();
@@ -115,6 +115,40 @@ var HTMLBootStrapPC = /** @class */ (function () {
         return "<div class=\"text-center my-2\">\n                    <input type=\"button\" id=\"".concat(id, "\" class=\"btn btn-primary my-3\" value=\"").concat(texto, "\" />\n                </div>");
     };
     return HTMLBootStrapPC;
+}());
+var HTMLBootStrapMovil = /** @class */ (function () {
+    function HTMLBootStrapMovil() {
+    }
+    HTMLBootStrapMovil.prototype.dameCss = function () {
+        return "<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH\" crossorigin=\"anonymous\">\n                <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz\" crossorigin=\"anonymous\"></script>";
+    };
+    HTMLBootStrapMovil.prototype.dameDiv = function (id) {
+        return ("<div id='".concat(id, "' class='container col-3 my-3 border border-dark bg-ligth rounded-3'>"));
+    };
+    HTMLBootStrapMovil.prototype.dameCheckBox = function (id, etiqueta) {
+        return "<div class=\"form-check form-switch mt-3\">\n                <input class=\"form-check-input\" type=\"checkbox\" id=\"".concat(id, "\" checked>\n                <label class=\"form-check-label\" for=\"").concat(id, "\">").concat(etiqueta, "</label>\n            </div>");
+    };
+    HTMLBootStrapMovil.prototype.dameTextBox = function (id, etiqueta) {
+        return "<input type=\"text\" class=\"form-control mb-3\" id=\"".concat(id, "\" placeholder =\"").concat(etiqueta, "\" />");
+    };
+    HTMLBootStrapMovil.prototype.dameNumberBox = function (id, etiqueta) {
+        return "<input type=\"number\" class=\"form-control mb-3\" id=\"".concat(id, "\" placeholder=\"").concat(etiqueta, "\" />");
+    };
+    HTMLBootStrapMovil.prototype.dameComboBox = function (id, etiqueta, opciones) {
+        var cadena = "<label for=\"".concat(id, "\" class=\"form-label\">").concat(etiqueta, ":</label>\n                      <select class=\"form-select mb-3\" id=\"").concat(id, "\">");
+        for (var i = 0; i < opciones.length; i++) {
+            cadena += "<option value=\"".concat(opciones[i], "\">").concat(opciones[i], "</option>");
+        }
+        cadena += "</select>";
+        return cadena;
+    };
+    HTMLBootStrapMovil.prototype.dameTextArea = function (id, etiqueta, filas) {
+        return "<textarea class=\"form-control mb-3\" id=\"".concat(id, "\" placeholder=\"").concat(etiqueta, "\" aria-label=\"").concat(etiqueta, " rows=\"").concat(String(filas), "\"></textarea>");
+    };
+    HTMLBootStrapMovil.prototype.dameBoton = function (id, texto) {
+        return "<div class=\"text-center my-2\">\n                    <input type=\"button\" id=\"".concat(id, "\" class=\"btn btn-primary my-3\" value=\"").concat(texto, "\" />\n                </div>");
+    };
+    return HTMLBootStrapMovil;
 }());
 var GenerarHTML = /** @class */ (function () {
     function GenerarHTML(LibreriaHTML) {
