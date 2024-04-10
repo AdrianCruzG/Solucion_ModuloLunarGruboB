@@ -11,3 +11,38 @@
     forma_granos: string = "";
     textura: string = "";
 }
+
+
+
+interface IValidable {
+    isValid(MiMineral: Mineral): boolean;
+}
+
+class ValidadorIgneas implements IValidable {
+    isValid(MiMineral: Mineral): boolean {
+        return (
+            MiMineral.grupo_origen == "Igneas" &&
+            MiMineral.tam_grano > 30
+        );
+    }
+}
+
+class ValidadorMetamorficas implements IValidable {
+    isValid(MiMineral: Mineral): boolean {
+        return (
+            MiMineral.grupo_origen == "Metamórfica" &&
+            MiMineral.tam_grano < 5 &&
+            MiMineral.textura == "Vítrea"
+        );
+    }
+}
+
+class ValidadorSedementaria implements IValidable {
+    isValid(MiMineral: Mineral): boolean {
+        return (
+            MiMineral.grupo_origen == "Sedimentaria" &&
+            MiMineral.textura == "Fanerítica"
+        );
+    }
+}
+
