@@ -213,7 +213,7 @@ interface IValidable {
 class ValidadorIgneas implements IValidable {
     isValid(MiMineral: Mineral): boolean {
         return (
-            MiMineral.grupo_origen == "Igneas" &&
+            MiMineral.grupo_origen == "Ígneas" &&
             MiMineral.tam_grano > 30
         );
     }
@@ -286,3 +286,40 @@ class CreadorHTML implements IMinerable {
     }
 }
 
+let ConfiguradorGeneral: IConfigurable = new configuradorEspanolPC();
+let GeneradorHTML: IGeneraHTML = ConfiguradorGeneral.dameGenerador();
+let _formulario = document.getElementById("ventanaFormulario");
+if (_formulario != null) {
+    _formulario.innerHTML = GeneradorHTML.dameHTML().toString();
+}
+let _boton = document.getElementById("boton");
+if (_boton != null) {
+    _boton.addEventListener("click", valida);
+}
+
+function valida() {
+
+    let Creador: IMinerable = ConfiguradorGeneral.dameCreador();
+    let ValidadorMineral: IValidable = ConfiguradorGeneral.dameValidador();
+    let Mostrador: IMuestra = ConfiguradorGeneral.dameMostrador();
+
+    let MiMineral = Creador.dameMineral();
+    let _verde = document.getElementById("verde");
+    let _rojo = document.getElementById("rojo");
+    if (ValidadorMineral.isValid(MiMineral)) {
+        if (_verde != null) {
+            _verde.innerHTML = Mostrador.dameContenido(MiMineral).toString();
+        }
+        if (_rojo != null) {
+            _rojo.innerHTML = "";
+        }
+    }
+    else {
+        if (_rojo != null) {
+            _rojo.innerHTML = Mostrador.dameContenido(MiMineral).toString();
+        }
+        if (_verde != null) {
+            _verde.innerHTML = "";
+        }
+    }
+}

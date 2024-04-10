@@ -161,7 +161,7 @@ var ValidadorIgneas = /** @class */ (function () {
     function ValidadorIgneas() {
     }
     ValidadorIgneas.prototype.isValid = function (MiMineral) {
-        return (MiMineral.grupo_origen == "Igneas" &&
+        return (MiMineral.grupo_origen == "Ígneas" &&
             MiMineral.tam_grano > 30);
     };
     return ValidadorIgneas;
@@ -231,4 +231,38 @@ var CreadorHTML = /** @class */ (function () {
     };
     return CreadorHTML;
 }());
+var ConfiguradorGeneral = new configuradorEspanolPC();
+var GeneradorHTML = ConfiguradorGeneral.dameGenerador();
+var _formulario = document.getElementById("ventanaFormulario");
+if (_formulario != null) {
+    _formulario.innerHTML = GeneradorHTML.dameHTML().toString();
+}
+var _boton = document.getElementById("boton");
+if (_boton != null) {
+    _boton.addEventListener("click", valida);
+}
+function valida() {
+    var Creador = ConfiguradorGeneral.dameCreador();
+    var ValidadorMineral = ConfiguradorGeneral.dameValidador();
+    var Mostrador = ConfiguradorGeneral.dameMostrador();
+    var MiMineral = Creador.dameMineral();
+    var _verde = document.getElementById("verde");
+    var _rojo = document.getElementById("rojo");
+    if (ValidadorMineral.isValid(MiMineral)) {
+        if (_verde != null) {
+            _verde.innerHTML = Mostrador.dameContenido(MiMineral).toString();
+        }
+        if (_rojo != null) {
+            _rojo.innerHTML = "";
+        }
+    }
+    else {
+        if (_rojo != null) {
+            _rojo.innerHTML = Mostrador.dameContenido(MiMineral).toString();
+        }
+        if (_verde != null) {
+            _verde.innerHTML = "";
+        }
+    }
+}
 //# sourceMappingURL=main.js.map
