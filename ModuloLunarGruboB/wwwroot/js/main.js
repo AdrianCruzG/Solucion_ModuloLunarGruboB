@@ -18,7 +18,7 @@ var configuradorEspanolPC = /** @class */ (function () {
     function configuradorEspanolPC() {
     }
     configuradorEspanolPC.prototype.dameGenerador = function () {
-        return new GenerarHTML(new HTMLBootStrapPC());
+        return new GenerarHTMLEspanol(new HTMLBootStrapPC());
     };
     configuradorEspanolPC.prototype.dameCreador = function () {
         return new CreadorHTML();
@@ -35,7 +35,7 @@ var configuradorEspanolMovil = /** @class */ (function () {
     function configuradorEspanolMovil() {
     }
     configuradorEspanolMovil.prototype.dameGenerador = function () {
-        return new GenerarHTML(new HTMLBootStrapMovil());
+        return new GenerarHTMLEspanol(new HTMLBootStrapMovil());
     };
     configuradorEspanolMovil.prototype.dameCreador = function () {
         return new CreadorHTML();
@@ -52,7 +52,7 @@ var configuradorInglesPC = /** @class */ (function () {
     function configuradorInglesPC() {
     }
     configuradorInglesPC.prototype.dameGenerador = function () {
-        return new GenerarHTML(new HTMLBootStrapPC());
+        return new GenerarHTMLIngles(new HTMLBootStrapPC());
     };
     configuradorInglesPC.prototype.dameCreador = function () {
         return new CreadorHTML();
@@ -69,7 +69,7 @@ var configuradorInglesMovil = /** @class */ (function () {
     function configuradorInglesMovil() {
     }
     configuradorInglesMovil.prototype.dameGenerador = function () {
-        return new GenerarHTML(new HTMLBootStrapMovil());
+        return new GenerarHTMLIngles(new HTMLBootStrapMovil());
     };
     configuradorInglesMovil.prototype.dameCreador = function () {
         return new CreadorHTML();
@@ -89,7 +89,7 @@ var HTMLBootStrapPC = /** @class */ (function () {
         return "<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH\" crossorigin=\"anonymous\">\n                <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz\" crossorigin=\"anonymous\"></script>";
     };
     HTMLBootStrapPC.prototype.dameDiv = function (id) {
-        return ("<div id='".concat(id, "' class='container col-6 my-3 border border-dark bg-ligth rounded-3'>"));
+        return ("<div id='".concat(id, "' class='container col-6 my-3 border border-dark bg-info bg-opacity-25 rounded-3'>"));
     };
     HTMLBootStrapPC.prototype.dameCheckBox = function (id, etiqueta) {
         return "<div class=\"form-check form-switch mt-3\">\n                <input class=\"form-check-input\" type=\"checkbox\" id=\"".concat(id, "\" checked>\n                <label class=\"form-check-label\" for=\"").concat(id, "\">").concat(etiqueta, "</label>\n            </div>");
@@ -97,8 +97,8 @@ var HTMLBootStrapPC = /** @class */ (function () {
     HTMLBootStrapPC.prototype.dameTextBox = function (id, etiqueta) {
         return "<div class=\"input-group mb-3\">\n                    <span class=\"input-group-text bg-primary text-white fw-bold\">".concat(etiqueta, "</span>\n                    <input type=\"text\" class=\"form-control\" id=\"").concat(id, "\" />\n                </div>");
     };
-    HTMLBootStrapPC.prototype.dameNumberBox = function (id, etiqueta) {
-        return "<div class=\"input-group mb-3 w-50\">\n                    <span class=\"input-group-text bg-primary text-white fw-bold\">".concat(etiqueta, "</span>\n                    <input type=\"number\" class=\"form-control\" id=\"").concat(id, "\" />\n                </div>");
+    HTMLBootStrapPC.prototype.dameNumberBox = function (id, etiqueta, numMin, numMax) {
+        return "<div class=\"input-group mb-3 w-75\">\n                    <span class=\"input-group-text bg-primary text-white fw-bold\">".concat(etiqueta, "</span>\n                    <input type=\"number\" class=\"form-control\" id=\"").concat(id, "\" min=\"").concat(numMin, "\" max=\"").concat(numMax, "\" />\n                </div>");
     };
     HTMLBootStrapPC.prototype.dameComboBox = function (id, etiqueta, opciones) {
         var cadena = "<div class=\"input-group mb-3\">\n                        <label class=\"input-group-text bg-primary text-white fw-bold\" for=\"".concat(id, "\">").concat(etiqueta, "</label>\n                        <select class=\"form-select\" id=\"").concat(id, "\">");
@@ -109,7 +109,7 @@ var HTMLBootStrapPC = /** @class */ (function () {
         return cadena;
     };
     HTMLBootStrapPC.prototype.dameTextArea = function (id, etiqueta, filas) {
-        return "<div class=\"input-group mb-3\">\n                    <span class=\"input-group-text bg-primary text-white fw-bold\">".concat(etiqueta, "</span>\n                    <textarea class=\"form-control\" id=\"").concat(id, "\" aria-label=\"").concat(etiqueta, " rows=\"").concat(String(filas), "\"></textarea>\n                </div>");
+        return "<div class=\"input-group mb-3\">\n                    <span class=\"input-group-text bg-primary text-white fw-bold\">".concat(etiqueta, "</span>\n                    <textarea class=\"form-control\" id=\"").concat(id, "\" aria-label=\"").concat(etiqueta, "\" rows=\"").concat(String(filas), "\"></textarea>\n                </div>");
     };
     HTMLBootStrapPC.prototype.dameBoton = function (id, texto) {
         return "<div class=\"text-center my-2\">\n                    <input type=\"button\" id=\"".concat(id, "\" class=\"btn btn-primary my-3\" value=\"").concat(texto, "\" />\n                </div>");
@@ -123,7 +123,7 @@ var HTMLBootStrapMovil = /** @class */ (function () {
         return "<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH\" crossorigin=\"anonymous\">\n                <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz\" crossorigin=\"anonymous\"></script>";
     };
     HTMLBootStrapMovil.prototype.dameDiv = function (id) {
-        return ("<div id='".concat(id, "' class='container col-3 my-3 border border-dark bg-ligth rounded-3'>"));
+        return ("<div id='".concat(id, "' class='container col-3 my-3 border border-dark bg-info bg-opacity-25 rounded-3'>"));
     };
     HTMLBootStrapMovil.prototype.dameCheckBox = function (id, etiqueta) {
         return "<div class=\"form-check form-switch mt-3\">\n                <input class=\"form-check-input\" type=\"checkbox\" id=\"".concat(id, "\" checked>\n                <label class=\"form-check-label\" for=\"").concat(id, "\">").concat(etiqueta, "</label>\n            </div>");
@@ -131,8 +131,8 @@ var HTMLBootStrapMovil = /** @class */ (function () {
     HTMLBootStrapMovil.prototype.dameTextBox = function (id, etiqueta) {
         return "<input type=\"text\" class=\"form-control mb-3\" id=\"".concat(id, "\" placeholder =\"").concat(etiqueta, "\" />");
     };
-    HTMLBootStrapMovil.prototype.dameNumberBox = function (id, etiqueta) {
-        return "<input type=\"number\" class=\"form-control mb-3\" id=\"".concat(id, "\" placeholder=\"").concat(etiqueta, "\" />");
+    HTMLBootStrapMovil.prototype.dameNumberBox = function (id, etiqueta, numMin, numMax) {
+        return "<input type=\"number\" class=\"form-control mb-3\" id=\"".concat(id, "\" min=\"").concat(numMin, "\" max=\"").concat(numMax, "\" placeholder=\"").concat(etiqueta, "\" />");
     };
     HTMLBootStrapMovil.prototype.dameComboBox = function (id, etiqueta, opciones) {
         var cadena = "<label for=\"".concat(id, "\" class=\"form-label\">").concat(etiqueta, ":</label>\n                      <select class=\"form-select mb-3\" id=\"").concat(id, "\">");
@@ -143,29 +143,29 @@ var HTMLBootStrapMovil = /** @class */ (function () {
         return cadena;
     };
     HTMLBootStrapMovil.prototype.dameTextArea = function (id, etiqueta, filas) {
-        return "<textarea class=\"form-control mb-3\" id=\"".concat(id, "\" placeholder=\"").concat(etiqueta, "\" aria-label=\"").concat(etiqueta, " rows=\"").concat(String(filas), "\"></textarea>");
+        return "<textarea class=\"form-control mb-3\" id=\"".concat(id, "\" placeholder=\"").concat(etiqueta, "\" aria-label=\"").concat(etiqueta, "\" rows=\"").concat(String(filas), "\"></textarea>");
     };
     HTMLBootStrapMovil.prototype.dameBoton = function (id, texto) {
         return "<div class=\"text-center my-2\">\n                    <input type=\"button\" id=\"".concat(id, "\" class=\"btn btn-primary my-3\" value=\"").concat(texto, "\" />\n                </div>");
     };
     return HTMLBootStrapMovil;
 }());
-var GenerarHTML = /** @class */ (function () {
-    function GenerarHTML(LibreriaHTML) {
+var GenerarHTMLEspanol = /** @class */ (function () {
+    function GenerarHTMLEspanol(LibreriaHTML) {
         this.g = LibreriaHTML;
     }
-    GenerarHTML.prototype.dameHTML = function () {
+    GenerarHTMLEspanol.prototype.dameHTML = function () {
         var contenido = this.g.dameCss();
         contenido += this.g.dameDiv("formulario");
         contenido += "<br />";
         contenido += this.g.dameTextBox("idMineral", "Identificativo");
         contenido += this.g.dameTextBox("nombre", "Nombre");
         contenido += this.g.dameComboBox("grupo_origen", "Grupo/Origen", ["Ígneas", "Metamórfica", "Sedimentaria"]);
-        contenido += this.g.dameNumberBox("dureza", "Dureza");
-        contenido += this.g.dameNumberBox("tam_grano", "Tamaño grano (mm)");
+        contenido += this.g.dameNumberBox("dureza", "Dureza", 1, 10);
+        contenido += this.g.dameNumberBox("tam_grano", "Tamaño grano (mm)", 0, 1000);
         contenido += this.g.dameComboBox("clasificacion", "Clasificación", ["Rocas de construcción", "Rocas ornamentales", "Rocas de uso en utensilios", "Piedras machacadas"]);
-        contenido += this.g.dameNumberBox("tam_cristales", "Tamaño cristales");
-        contenido += this.g.dameNumberBox("temp_formacion", "Temperatura formación (°K)");
+        contenido += this.g.dameNumberBox("tam_cristales", "Tamaño cristales", 0, 10);
+        contenido += this.g.dameNumberBox("temp_formacion", "Temperatura formación (°K)", -100, 100);
         contenido += this.g.dameTextArea("estructura", "Estructura", 3);
         contenido += this.g.dameTextArea("forma_granos", "Forma de los granos", 3);
         contenido += this.g.dameComboBox("textura", "Textura", ["Vítrea", "Afanítica", "Fanerítica"]);
@@ -173,13 +173,38 @@ var GenerarHTML = /** @class */ (function () {
         contenido += "</div><br/>";
         return contenido;
     };
-    return GenerarHTML;
+    return GenerarHTMLEspanol;
+}());
+var GenerarHTMLIngles = /** @class */ (function () {
+    function GenerarHTMLIngles(LibreriaHTML) {
+        this.g = LibreriaHTML;
+    }
+    GenerarHTMLIngles.prototype.dameHTML = function () {
+        var contenido = this.g.dameCss();
+        contenido += this.g.dameDiv("formulario");
+        contenido += "<br />";
+        contenido += this.g.dameTextBox("idMineral", "Identifier");
+        contenido += this.g.dameTextBox("nombre", "Name");
+        contenido += this.g.dameComboBox("grupo_origen", "Group/Origin", ["Ígneas", "Metamórfica", "Sedimentaria"]);
+        contenido += this.g.dameNumberBox("dureza", "Hardness", 1, 10);
+        contenido += this.g.dameNumberBox("tam_grano", "Grain Size (mm)", 0, 1000);
+        contenido += this.g.dameComboBox("clasificacion", "Sort", ["Rocas de construcción", "Rocas ornamentales", "Rocas de uso en utensilios", "Piedras machacadas"]);
+        contenido += this.g.dameNumberBox("tam_cristales", "Crystal Size", 0, 10);
+        contenido += this.g.dameNumberBox("temp_formacion", "Formation Temperature (°K)", -100, 100);
+        contenido += this.g.dameTextArea("estructura", "Structure", 3);
+        contenido += this.g.dameTextArea("forma_granos", "Forms Grains", 3);
+        contenido += this.g.dameComboBox("textura", "Texture", ["Vítrea", "Afanítica", "Fanerítica"]);
+        contenido += this.g.dameBoton("boton", "Show");
+        contenido += "</div><br/>";
+        return contenido;
+    };
+    return GenerarHTMLIngles;
 }());
 var MuestraHTMLAmericano = /** @class */ (function () {
     function MuestraHTMLAmericano() {
     }
     MuestraHTMLAmericano.prototype.dameContenido = function (MiMineral) {
-        return ("<p>Identifier: ".concat(MiMineral.idMineral, " </p> <br/>\n                 <p>Name: ").concat(MiMineral.nombre, " </p> <br/>\n                 <p>Group/Origin: ").concat(MiMineral.grupo_origen, " </p> <br/>\n                 <p>Hardness: ").concat(MiMineral.dureza, " </p> <br/>\n                 <p>Grain Size: ").concat(MiMineral.dureza, " </p> <br/>\n                 <p>Sort: ").concat(MiMineral.clasificacion, " </p> <br/>\n                 <p>Crystal Size: ").concat(MiMineral.tam_cristales, " </p> <br/> \n                 <p>Formation Temperature: ").concat(((MiMineral.temp_formacion - 273.15) * 9) / 5 + 32, " \u00B0F </p> <br/> \n                 <p>Structure: ").concat(MiMineral.estructura, " </p> <br/> \n                 <p>Forms Grains: ").concat(MiMineral.forma_granos, " </p> <br/> \n                 <p>Texture: ").concat(MiMineral.textura, " </p> <br/>   "));
+        return ("<p>Identifier: ".concat(MiMineral.idMineral, " </p> <br/>\n                 <p>Name: ").concat(MiMineral.nombre, " </p> <br/>\n                 <p>Group/Origin: ").concat(MiMineral.grupo_origen, " </p> <br/>\n                 <p>Hardness: ").concat(MiMineral.dureza, " </p> <br/>\n                 <p>Grain Size: ").concat(MiMineral.tam_grano, " </p> <br/>\n                 <p>Sort: ").concat(MiMineral.clasificacion, " </p> <br/>\n                 <p>Crystal Size: ").concat(MiMineral.tam_cristales, " </p> <br/> \n                 <p>Formation Temperature: ").concat(((MiMineral.temp_formacion - 273.15) * 9) / 5 + 32, " \u00B0F </p> <br/> \n                 <p>Structure: ").concat(MiMineral.estructura, " </p> <br/> \n                 <p>Forms Grains: ").concat(MiMineral.forma_granos, " </p> <br/> \n                 <p>Texture: ").concat(MiMineral.textura, " </p> <br/>   "));
     };
     return MuestraHTMLAmericano;
 }());
@@ -268,7 +293,7 @@ var CreadorHTML = /** @class */ (function () {
     };
     return CreadorHTML;
 }());
-var ConfiguradorGeneral = new configuradorInglesMovil();
+var ConfiguradorGeneral = new configuradorEspanolPC();
 var GeneradorHTML = ConfiguradorGeneral.dameGenerador();
 var _formulario = document.getElementById("ventanaFormulario");
 if (_formulario != null) {
@@ -287,7 +312,8 @@ function valida() {
     var _rojo = document.getElementById("rojo");
     if (ValidadorMineral.isValid(MiMineral)) {
         if (_verde != null) {
-            _verde.innerHTML = "<img src=\"img/feliz.webp\" width=\"100\" />" + Mostrador.dameContenido(MiMineral).toString();
+            _verde.innerHTML = "<div class=\"text-center py-3\"><img src=\"img/feliz.webp\" width=\"100\" /></div>"
+                + Mostrador.dameContenido(MiMineral).toString();
         }
         if (_rojo != null) {
             _rojo.innerHTML = "";
@@ -295,7 +321,8 @@ function valida() {
     }
     else {
         if (_rojo != null) {
-            _rojo.innerHTML = "<img src=\"img/enfadado.png\" width=\"100\" />" + Mostrador.dameContenido(MiMineral).toString();
+            _rojo.innerHTML = "<div class=\"text-center py-3\"><img src=\"img/enfadado.png\" width=\"100\" /></div>"
+                + Mostrador.dameContenido(MiMineral).toString();
         }
         if (_verde != null) {
             _verde.innerHTML = "";
