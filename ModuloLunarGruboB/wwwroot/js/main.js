@@ -14,6 +14,74 @@ var Mineral = /** @class */ (function () {
     }
     return Mineral;
 }());
+var configuradorEspanolPC = /** @class */ (function () {
+    function configuradorEspanolPC() {
+    }
+    configuradorEspanolPC.prototype.dameGenerador = function () {
+        return new GenerarHTML(new HTMLBootStrapPC());
+    };
+    configuradorEspanolPC.prototype.dameCreador = function () {
+        return new CreadorHTML();
+    };
+    configuradorEspanolPC.prototype.dameValidador = function () {
+        return new ValidadorIgneas();
+    };
+    configuradorEspanolPC.prototype.dameMostrador = function () {
+        return new MuestraHTMLEuropeo();
+    };
+    return configuradorEspanolPC;
+}());
+var configuradorEspanolMovil = /** @class */ (function () {
+    function configuradorEspanolMovil() {
+    }
+    configuradorEspanolMovil.prototype.dameGenerador = function () {
+        return new GenerarHTML(new HTMLBootStrapPC());
+    };
+    configuradorEspanolMovil.prototype.dameCreador = function () {
+        return new CreadorHTML();
+    };
+    configuradorEspanolMovil.prototype.dameValidador = function () {
+        return new ValidadorIgneas();
+    };
+    configuradorEspanolMovil.prototype.dameMostrador = function () {
+        return new MuestraHTMLEuropeo();
+    };
+    return configuradorEspanolMovil;
+}());
+var configuradorInglesPC = /** @class */ (function () {
+    function configuradorInglesPC() {
+    }
+    configuradorInglesPC.prototype.dameGenerador = function () {
+        return new GenerarHTML(new HTMLBootStrapPC());
+    };
+    configuradorInglesPC.prototype.dameCreador = function () {
+        return new CreadorHTML();
+    };
+    configuradorInglesPC.prototype.dameValidador = function () {
+        return new ValidadorMetamorficas();
+    };
+    configuradorInglesPC.prototype.dameMostrador = function () {
+        return new MuestraHTMLAmericano();
+    };
+    return configuradorInglesPC;
+}());
+var configuradorInglesMovil = /** @class */ (function () {
+    function configuradorInglesMovil() {
+    }
+    configuradorInglesMovil.prototype.dameGenerador = function () {
+        return new GenerarHTML(new HTMLBootStrapPC());
+    };
+    configuradorInglesMovil.prototype.dameCreador = function () {
+        return new CreadorHTML();
+    };
+    configuradorInglesMovil.prototype.dameValidador = function () {
+        return new ValidadorSedimentaria();
+    };
+    configuradorInglesMovil.prototype.dameMostrador = function () {
+        return new MuestraHTMLAmericano();
+    };
+    return configuradorInglesMovil;
+}());
 var HTMLBootStrapPC = /** @class */ (function () {
     function HTMLBootStrapPC() {
     }
@@ -72,7 +140,7 @@ var GenerarHTML = /** @class */ (function () {
         return contenido;
     };
     return GenerarHTML;
-
+}());
 var MuestraHTMLAmericano = /** @class */ (function () {
     function MuestraHTMLAmericano() {
     }
@@ -88,7 +156,7 @@ var MuestraHTMLEuropeo = /** @class */ (function () {
         return ("<p>Identificador: ".concat(MiMineral.idMineral, " </p> <br/>\n                 <p>Nombre: ").concat(MiMineral.nombre, " </p> <br/>\n                 <p>Grupo/Origen: ").concat(MiMineral.grupo_origen, " </p> <br/>\n                 <p>Dureza: ").concat(MiMineral.dureza, " </p> <br/>\n                 <p>Tama\u00F1o Grano: ").concat(MiMineral.tam_grano, " mm </p> <br/>\n                 <p>Clasificaci\u00F3n: ").concat(MiMineral.clasificacion, " </p> <br/>\n                 <p>Tama\u00F1o Cristales: ").concat(MiMineral.tam_cristales, " </p> <br/> \n                 <p>Temperatura Formacion: ").concat((MiMineral.temp_formacion - 273.15), " \u00B0C </p> <br/> \n                 <p>Estructura: ").concat(MiMineral.estructura, " </p> <br/> \n                 <p>Forma Granos: ").concat(MiMineral.forma_granos, " </p> <br/> \n                 <p>Textura: ").concat(MiMineral.textura, " </p> <br/> "));
     };
     return MuestraHTMLEuropeo;
-
+}());
 var ValidadorIgneas = /** @class */ (function () {
     function ValidadorIgneas() {
     }
@@ -108,15 +176,15 @@ var ValidadorMetamorficas = /** @class */ (function () {
     };
     return ValidadorMetamorficas;
 }());
-var ValidadorSedementaria = /** @class */ (function () {
-    function ValidadorSedementaria() {
+var ValidadorSedimentaria = /** @class */ (function () {
+    function ValidadorSedimentaria() {
     }
-    ValidadorSedementaria.prototype.isValid = function (MiMineral) {
+    ValidadorSedimentaria.prototype.isValid = function (MiMineral) {
         return (MiMineral.grupo_origen == "Sedimentaria" &&
             MiMineral.textura == "Fanerítica");
     };
-    return ValidadorSedementaria;
-
+    return ValidadorSedimentaria;
+}());
 var CreadorManualMineral = /** @class */ (function () {
     function CreadorManualMineral() {
     }
@@ -162,7 +230,5 @@ var CreadorHTML = /** @class */ (function () {
         return document.getElementById(elementoId).value;
     };
     return CreadorHTML;
-
-
 }());
 //# sourceMappingURL=main.js.map

@@ -229,7 +229,7 @@ class ValidadorMetamorficas implements IValidable {
     }
 }
 
-class ValidadorSedementaria implements IValidable {
+class ValidadorSedimentaria implements IValidable {
     isValid(MiMineral: Mineral): boolean {
         return (
             MiMineral.grupo_origen == "Sedimentaria" &&
