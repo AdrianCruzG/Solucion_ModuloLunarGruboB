@@ -22,7 +22,7 @@ interface IConfigurable {
 
 class configuradorEspanolPC implements IConfigurable {
     dameGenerador(): IGeneraHTML {
-        return new GenerarHTML(new HTMLBootStrapPC());
+        return new GenerarHTML(new HTMLBootStrapMovil());
     }
     dameCreador(): IMinerable {
         return new CreadorHTML();
@@ -131,6 +131,43 @@ class HTMLBootStrapPC implements ILibreriaHTML {
                     <span class="input-group-text bg-primary text-white fw-bold">${etiqueta}</span>
                     <textarea class="form-control" id="${id}" aria-label="${etiqueta} rows="${String(filas)}"></textarea>
                 </div>`;
+    }
+    public dameBoton(id: string, texto: string): string {
+        return `<div class="text-center my-2">
+                    <input type="button" id="${id}" class="btn btn-primary my-3" value="${texto}" />
+                </div>`;
+    }
+}class HTMLBootStrapMovil implements ILibreriaHTML {
+    public dameCss(): string {
+        return `<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>`;
+    }
+    public dameDiv(id: string): string {
+        return (`<div id='${id}' class='container col-3 my-3 border border-dark bg-ligth rounded-3'>`);
+    }
+    public dameCheckBox(id: string, etiqueta: string): string {
+    return `<div class="form-check form-switch mt-3">
+                <input class="form-check-input" type="checkbox" id="${id}" checked>
+                <label class="form-check-label" for="${id}">${etiqueta}</label>
+            </div>`;
+    }
+    public dameTextBox(id: string, etiqueta: string): string {
+        return `<input type="text" class="form-control mb-3" id="${id}" placeholder ="${etiqueta}" />`;
+    }
+    public dameNumberBox(id: string, etiqueta: string): string {
+        return `<input type="number" class="form-control mb-3" id="${id}" placeholder="${etiqueta}" />`;
+    }
+    public dameComboBox(id: string, etiqueta: string, opciones: string[]): string {
+        let cadena = `<label for="${id}" class="form-label">${etiqueta}:</label>
+                      <select class="form-select mb-3" id="${id}">`;
+        for (let i = 0; i < opciones.length; i++) {
+            cadena += `<option value="${opciones[i]}">${opciones[i]}</option>`;
+        }
+        cadena += `</select>`;
+        return cadena;
+    }
+    public dameTextArea(id: string, etiqueta: string, filas: number): string {
+        return `<textarea class="form-control mb-3" id="${id}" placeholder="${etiqueta}" aria-label="${etiqueta} rows="${String(filas)}"></textarea>`;
     }
     public dameBoton(id: string, texto: string): string {
         return `<div class="text-center my-2">
