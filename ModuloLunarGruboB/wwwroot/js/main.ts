@@ -22,7 +22,7 @@ interface IConfigurable {
 
 class configuradorEspanolPC implements IConfigurable {
     dameGenerador(): IGeneraHTML {
-        return new GenerarHTML(new HTMLBootStrapMovil());
+        return new GenerarHTML(new HTMLBootStrapPC());
     }
     dameCreador(): IMinerable {
         return new CreadorHTML();
@@ -36,7 +36,7 @@ class configuradorEspanolPC implements IConfigurable {
 }
 class configuradorEspanolMovil implements IConfigurable {
     dameGenerador(): IGeneraHTML {
-        return new GenerarHTML(new HTMLBootStrapPC());
+        return new GenerarHTML(new HTMLBootStrapMovil());
     }
     dameCreador(): IMinerable {
         return new CreadorHTML();
@@ -66,7 +66,7 @@ class configuradorInglesPC implements IConfigurable {
 
 class configuradorInglesMovil implements IConfigurable {
     dameGenerador(): IGeneraHTML {
-        return new GenerarHTML(new HTMLBootStrapPC());
+        return new GenerarHTML(new HTMLBootStrapMovil());
     }
     dameCreador(): IMinerable {
         return new CreadorHTML();

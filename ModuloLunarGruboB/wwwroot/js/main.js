@@ -18,7 +18,7 @@ var configuradorEspanolPC = /** @class */ (function () {
     function configuradorEspanolPC() {
     }
     configuradorEspanolPC.prototype.dameGenerador = function () {
-        return new GenerarHTML(new HTMLBootStrapMovil());
+        return new GenerarHTML(new HTMLBootStrapPC());
     };
     configuradorEspanolPC.prototype.dameCreador = function () {
         return new CreadorHTML();
@@ -35,7 +35,7 @@ var configuradorEspanolMovil = /** @class */ (function () {
     function configuradorEspanolMovil() {
     }
     configuradorEspanolMovil.prototype.dameGenerador = function () {
-        return new GenerarHTML(new HTMLBootStrapPC());
+        return new GenerarHTML(new HTMLBootStrapMovil());
     };
     configuradorEspanolMovil.prototype.dameCreador = function () {
         return new CreadorHTML();
@@ -69,7 +69,7 @@ var configuradorInglesMovil = /** @class */ (function () {
     function configuradorInglesMovil() {
     }
     configuradorInglesMovil.prototype.dameGenerador = function () {
-        return new GenerarHTML(new HTMLBootStrapPC());
+        return new GenerarHTML(new HTMLBootStrapMovil());
     };
     configuradorInglesMovil.prototype.dameCreador = function () {
         return new CreadorHTML();
