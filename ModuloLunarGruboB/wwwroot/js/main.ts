@@ -308,7 +308,7 @@ function valida() {
     let _rojo = document.getElementById("rojo");
     if (ValidadorMineral.isValid(MiMineral)) {
         if (_verde != null) {
-            _verde.innerHTML = Mostrador.dameContenido(MiMineral).toString();
+            _verde.innerHTML = `<img src="img/feliz.webp" />` + Mostrador.dameContenido(MiMineral).toString();
         }
         if (_rojo != null) {
             _rojo.innerHTML = "";
@@ -316,7 +316,7 @@ function valida() {
     }
     else {
         if (_rojo != null) {
-            _rojo.innerHTML = Mostrador.dameContenido(MiMineral).toString();
+            _rojo.innerHTML = `<img src="img/enfadado.png" />`+ Mostrador.dameContenido(MiMineral).toString();
         }
         if (_verde != null) {
             _verde.innerHTML = "";
