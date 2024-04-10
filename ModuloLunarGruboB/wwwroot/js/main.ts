@@ -250,15 +250,17 @@ interface IValidable {
 class ValidadorIgneas implements IValidable {
     isValid(MiMineral: Mineral): boolean {
         return (
+            (/[A-Z]{2}[0-9]{4}[A-Z]{2}/.test(MiMineral.idMineral)) &&
             MiMineral.grupo_origen == "Ígneas" &&
-            MiMineral.tam_grano > 30
-        );
+            MiMineral.tam_grano > 30);
+            
     }
 }
 
 class ValidadorMetamorficas implements IValidable {
     isValid(MiMineral: Mineral): boolean {
         return (
+            (/[A-Z]{2}[0-9]{4}[A-Z]{2}/.test(MiMineral.idMineral)) &&
             MiMineral.grupo_origen == "Metamórfica" &&
             MiMineral.tam_grano < 5 &&
             MiMineral.textura == "Vítrea"
@@ -269,6 +271,7 @@ class ValidadorMetamorficas implements IValidable {
 class ValidadorSedimentaria implements IValidable {
     isValid(MiMineral: Mineral): boolean {
         return (
+            (/[A-Z]{2}[0-9]{4}[A-Z]{2}/.test(MiMineral.idMineral)) &&
             MiMineral.grupo_origen == "Sedimentaria" &&
             MiMineral.textura == "Fanerítica"
         );

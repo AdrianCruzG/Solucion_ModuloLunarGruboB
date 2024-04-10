@@ -195,7 +195,8 @@ var ValidadorIgneas = /** @class */ (function () {
     function ValidadorIgneas() {
     }
     ValidadorIgneas.prototype.isValid = function (MiMineral) {
-        return (MiMineral.grupo_origen == "Ígneas" &&
+        return ((/[A-Z]{2}[0-9]{4}[A-Z]{2}/.test(MiMineral.idMineral)) &&
+            MiMineral.grupo_origen == "Ígneas" &&
             MiMineral.tam_grano > 30);
     };
     return ValidadorIgneas;
@@ -204,7 +205,8 @@ var ValidadorMetamorficas = /** @class */ (function () {
     function ValidadorMetamorficas() {
     }
     ValidadorMetamorficas.prototype.isValid = function (MiMineral) {
-        return (MiMineral.grupo_origen == "Metamórfica" &&
+        return ((/[A-Z]{2}[0-9]{4}[A-Z]{2}/.test(MiMineral.idMineral)) &&
+            MiMineral.grupo_origen == "Metamórfica" &&
             MiMineral.tam_grano < 5 &&
             MiMineral.textura == "Vítrea");
     };
@@ -214,7 +216,8 @@ var ValidadorSedimentaria = /** @class */ (function () {
     function ValidadorSedimentaria() {
     }
     ValidadorSedimentaria.prototype.isValid = function (MiMineral) {
-        return (MiMineral.grupo_origen == "Sedimentaria" &&
+        return ((/[A-Z]{2}[0-9]{4}[A-Z]{2}/.test(MiMineral.idMineral)) &&
+            MiMineral.grupo_origen == "Sedimentaria" &&
             MiMineral.textura == "Fanerítica");
     };
     return ValidadorSedimentaria;
