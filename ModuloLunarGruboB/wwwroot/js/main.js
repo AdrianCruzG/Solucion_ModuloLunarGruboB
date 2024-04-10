@@ -14,6 +14,35 @@ var Mineral = /** @class */ (function () {
     }
     return Mineral;
 }());
+
+var ValidadorIgneas = /** @class */ (function () {
+    function ValidadorIgneas() {
+    }
+    ValidadorIgneas.prototype.isValid = function (MiMineral) {
+        return (MiMineral.grupo_origen == "Igneas" &&
+            MiMineral.tam_grano > 30);
+    };
+    return ValidadorIgneas;
+}());
+var ValidadorMetamorficas = /** @class */ (function () {
+    function ValidadorMetamorficas() {
+    }
+    ValidadorMetamorficas.prototype.isValid = function (MiMineral) {
+        return (MiMineral.grupo_origen == "Metamórfica" &&
+            MiMineral.tam_grano < 5 &&
+            MiMineral.textura == "Vítrea");
+    };
+    return ValidadorMetamorficas;
+}());
+var ValidadorSedementaria = /** @class */ (function () {
+    function ValidadorSedementaria() {
+    }
+    ValidadorSedementaria.prototype.isValid = function (MiMineral) {
+        return (MiMineral.grupo_origen == "Sedimentaria" &&
+            MiMineral.textura == "Fanerítica");
+    };
+    return ValidadorSedementaria;
+
 var CreadorManualMineral = /** @class */ (function () {
     function CreadorManualMineral() {
     }
@@ -59,5 +88,6 @@ var CreadorHTML = /** @class */ (function () {
         return document.getElementById(elementoId).value;
     };
     return CreadorHTML;
+
 }());
 //# sourceMappingURL=main.js.map
