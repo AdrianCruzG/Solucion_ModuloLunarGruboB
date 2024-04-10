@@ -14,6 +14,7 @@ var Mineral = /** @class */ (function () {
     }
     return Mineral;
 }());
+
 var ValidadorIgneas = /** @class */ (function () {
     function ValidadorIgneas() {
     }
@@ -41,5 +42,52 @@ var ValidadorSedementaria = /** @class */ (function () {
             MiMineral.textura == "Fanerítica");
     };
     return ValidadorSedementaria;
+
+var CreadorManualMineral = /** @class */ (function () {
+    function CreadorManualMineral() {
+    }
+    CreadorManualMineral.prototype.dameMineral = function () {
+        var MiMineral = new Mineral();
+        MiMineral.idMineral = "idMineral";
+        MiMineral.nombre = "nombre";
+        MiMineral.grupo_origen = "grupo_origen";
+        MiMineral.dureza = 0;
+        MiMineral.tam_grano = 0;
+        MiMineral.clasificacion = "clasificacion";
+        MiMineral.tam_cristales = 0;
+        MiMineral.temp_formacion = 0;
+        MiMineral.estructura = "estructura";
+        MiMineral.forma_granos = "forma_granos";
+        MiMineral.textura = "textura";
+        return MiMineral;
+    };
+    return CreadorManualMineral;
+}());
+var CreadorHTML = /** @class */ (function () {
+    function CreadorHTML() {
+    }
+    CreadorHTML.prototype.dameMineral = function () {
+        var MiMineral = new Mineral();
+        MiMineral.idMineral = this.dameValorTexto("idMineral");
+        MiMineral.nombre = this.dameValorTexto("nombre");
+        MiMineral.grupo_origen = this.dameValorTexto("grupo_origen");
+        MiMineral.dureza = this.dameValorNumero("dureza");
+        MiMineral.tam_grano = this.dameValorNumero("tam_grano");
+        MiMineral.clasificacion = this.dameValorTexto("clasificacion");
+        MiMineral.tam_cristales = this.dameValorNumero("tam_cristales");
+        MiMineral.temp_formacion = this.dameValorNumero("temp_formacion");
+        MiMineral.estructura = this.dameValorTexto("estructura");
+        MiMineral.forma_granos = this.dameValorTexto("forma_granos");
+        MiMineral.textura = this.dameValorTexto("textura");
+        return MiMineral;
+    };
+    CreadorHTML.prototype.dameValorNumero = function (elementoId) {
+        return Number(this.dameValorTexto(elementoId));
+    };
+    CreadorHTML.prototype.dameValorTexto = function (elementoId) {
+        return document.getElementById(elementoId).value;
+    };
+    return CreadorHTML;
+
 }());
 //# sourceMappingURL=main.js.map
