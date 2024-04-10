@@ -1,5 +1,5 @@
 ﻿class Mineral {
-    id: string = "";
+    idMineral: string = "";
     nombre: string = "";
     grupo_origen: string = "";
     dureza: number = 0;

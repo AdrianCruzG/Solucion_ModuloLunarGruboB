@@ -1,6 +1,6 @@
 var Mineral = /** @class */ (function () {
     function Mineral() {
-        this.id = "";
+        this.idMineral = "";
         this.nombre = "";
         this.grupo_origen = "";
         this.dureza = 0;
