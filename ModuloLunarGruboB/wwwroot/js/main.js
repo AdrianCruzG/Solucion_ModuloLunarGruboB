@@ -265,7 +265,7 @@ var CreadorHTML = /** @class */ (function () {
     };
     return CreadorHTML;
 }());
-var ConfiguradorGeneral = new configuradorEspanolPC();
+var ConfiguradorGeneral = new configuradorInglesMovil();
 var GeneradorHTML = ConfiguradorGeneral.dameGenerador();
 var _formulario = document.getElementById("ventanaFormulario");
 if (_formulario != null) {

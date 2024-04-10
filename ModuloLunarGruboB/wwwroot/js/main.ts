@@ -323,7 +323,7 @@ class CreadorHTML implements IMinerable {
     }
 }
 
-let ConfiguradorGeneral: IConfigurable = new configuradorEspanolPC();
+let ConfiguradorGeneral: IConfigurable = new configuradorInglesMovil();
 let GeneradorHTML: IGeneraHTML = ConfiguradorGeneral.dameGenerador();
 let _formulario = document.getElementById("ventanaFormulario");
 if (_formulario != null) {
