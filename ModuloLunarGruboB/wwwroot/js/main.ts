@@ -189,7 +189,7 @@ class GenerarHTML implements IGeneraHTML {
         contenido += "<br />";
         contenido += this.g.dameTextBox("idMineral", "Identificativo");
         contenido += this.g.dameTextBox("nombre", "Nombre");
-        contenido += this.g.dameComboBox("grupo_origen", "Grupo/Origen", ["Ígneas", "Metamórficas", "Sedimentaria"]);
+        contenido += this.g.dameComboBox("grupo_origen", "Grupo/Origen", ["Ígneas", "Metamórfica", "Sedimentaria"]);
         contenido += this.g.dameNumberBox("dureza", "Dureza");
         contenido += this.g.dameNumberBox("tam_grano", "Tamaño grano (mm)");
         contenido += this.g.dameComboBox("clasificacion", "Clasificación", ["Rocas de construcción", "Rocas ornamentales", "Rocas de uso en utensilios", "Piedras machacadas"]);
@@ -197,7 +197,7 @@ class GenerarHTML implements IGeneraHTML {
         contenido += this.g.dameNumberBox("temp_formacion", "Temperatura formación (°K)");
         contenido += this.g.dameTextArea("estructura", "Estructura", 3);
         contenido += this.g.dameTextArea("forma_granos", "Forma de los granos", 3);
-        contenido += this.g.dameComboBox("textura", "Textura", ["Vitrea", "Afanítica", "Fanerítica"]);
+        contenido += this.g.dameComboBox("textura", "Textura", ["Vítrea", "Afanítica", "Fanerítica"]);
         contenido += this.g.dameBoton("boton", "Mostrar");
         contenido += "</div><br/>";
         return contenido;
