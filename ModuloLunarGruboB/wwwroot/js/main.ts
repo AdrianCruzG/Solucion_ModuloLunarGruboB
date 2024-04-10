@@ -11,6 +11,74 @@ class Mineral {
     forma_granos: string = "";
     textura: string = "";
 }
+
+
+interface IConfigurable {
+    dameGenerador(): IGeneraHTML;
+    dameCreador(): IMinerable;
+    dameValidador(): IValidable;
+    dameMostrador(): IMuestra;
+}
+
+class configuradorEspanolPC implements IConfigurable {
+    dameGenerador(): IGeneraHTML {
+        return new GenerarHTML(new HTMLBootStrapPC());
+    }
+    dameCreador(): IMinerable {
+        return new CreadorHTML();
+    }
+    dameValidador(): IValidable {
+        return new ValidadorIgneas();
+    }
+    dameMostrador(): IMuestra {
+        return new MuestraHTMLEuropeo();
+    }
+}
+class configuradorEspanolMovil implements IConfigurable {
+    dameGenerador(): IGeneraHTML {
+        return new GenerarHTML(new HTMLBootStrapPC());
+    }
+    dameCreador(): IMinerable {
+        return new CreadorHTML();
+    }
+    dameValidador(): IValidable {
+        return new ValidadorIgneas();
+    }
+    dameMostrador(): IMuestra {
+        return new MuestraHTMLEuropeo();
+    }
+}
+
+class configuradorInglesPC implements IConfigurable {
+    dameGenerador(): IGeneraHTML {
+        return new GenerarHTML(new HTMLBootStrapPC());
+    }
+    dameCreador(): IMinerable {
+        return new CreadorHTML();
+    }
+    dameValidador(): IValidable {
+        return new ValidadorMetamorficas();
+    }
+    dameMostrador(): IMuestra {
+        return new MuestraHTMLAmericano();
+    }
+}
+
+class configuradorInglesMovil implements IConfigurable {
+    dameGenerador(): IGeneraHTML {
+        return new GenerarHTML(new HTMLBootStrapPC());
+    }
+    dameCreador(): IMinerable {
+        return new CreadorHTML();
+    }
+    dameValidador(): IValidable {
+        return new ValidadorSedimentaria();
+    }
+    dameMostrador(): IMuestra {
+        return new MuestraHTMLAmericano();
+    }
+}
+
 interface ILibreriaHTML {
     dameCss(): string;
     dameDiv(id: string): string;
@@ -217,3 +285,4 @@ class CreadorHTML implements IMinerable {
         return (<HTMLInputElement>document.getElementById(elementoId)).value;
     }
 }
+
