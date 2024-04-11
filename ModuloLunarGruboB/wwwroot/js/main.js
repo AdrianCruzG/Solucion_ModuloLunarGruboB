@@ -23,9 +23,9 @@ var configuradorEspanolPC = /** @class */ (function () {
     configuradorEspanolPC.prototype.dameCreador = function () {
         return new CreadorHTML();
     };
-    configuradorEspanolPC.prototype.dameValidador = function () {
-        return new ValidadorIgneas();
-    };
+    //dameValidador(): IValidable {
+    //    return new ValidadorIgneas();
+    //}
     configuradorEspanolPC.prototype.dameMostrador = function () {
         return new MuestraHTMLEuropeo();
     };
@@ -40,9 +40,9 @@ var configuradorEspanolMovil = /** @class */ (function () {
     configuradorEspanolMovil.prototype.dameCreador = function () {
         return new CreadorHTML();
     };
-    configuradorEspanolMovil.prototype.dameValidador = function () {
-        return new ValidadorIgneas();
-    };
+    //dameValidador(): IValidable {
+    //    return new ValidadorIgneas();
+    //}
     configuradorEspanolMovil.prototype.dameMostrador = function () {
         return new MuestraHTMLEuropeo();
     };
@@ -57,9 +57,9 @@ var configuradorInglesPC = /** @class */ (function () {
     configuradorInglesPC.prototype.dameCreador = function () {
         return new CreadorHTML();
     };
-    configuradorInglesPC.prototype.dameValidador = function () {
-        return new ValidadorMetamorficas();
-    };
+    //dameValidador(): IValidable {
+    //    return new ValidadorMetamorficas();
+    //}
     configuradorInglesPC.prototype.dameMostrador = function () {
         return new MuestraHTMLAmericano();
     };
@@ -74,9 +74,9 @@ var configuradorInglesMovil = /** @class */ (function () {
     configuradorInglesMovil.prototype.dameCreador = function () {
         return new CreadorHTML();
     };
-    configuradorInglesMovil.prototype.dameValidador = function () {
-        return new ValidadorSedimentaria();
-    };
+    //dameValidador(): IValidable {
+    //    return new ValidadorSedimentaria();
+    //}
     configuradorInglesMovil.prototype.dameMostrador = function () {
         return new MuestraHTMLAmericano();
     };
@@ -158,6 +158,7 @@ var GenerarHTMLEspanol = /** @class */ (function () {
         var contenido = this.g.dameCss();
         contenido += this.g.dameDiv("formulario");
         contenido += "<br />";
+        contenido += this.g.dameComboBox("validador", "Validador", ["Ígneas", "Metamórfica", "Sedimentaria"]);
         contenido += this.g.dameTextBox("idMineral", "Identificativo");
         contenido += this.g.dameTextBox("nombre", "Nombre");
         contenido += this.g.dameComboBox("grupo_origen", "Grupo/Origen", ["Ígneas", "Metamórfica", "Sedimentaria"]);
@@ -183,6 +184,7 @@ var GenerarHTMLIngles = /** @class */ (function () {
         var contenido = this.g.dameCss();
         contenido += this.g.dameDiv("formulario");
         contenido += "<br />";
+        contenido += this.g.dameComboBox("validador", "Validador", ["Ígneas", "Metamórfica", "Sedimentaria"]);
         contenido += this.g.dameTextBox("idMineral", "Identifier");
         contenido += this.g.dameTextBox("nombre", "Name");
         contenido += this.g.dameComboBox("grupo_origen", "Group/Origin", ["Ígneas", "Metamórfica", "Sedimentaria"]);
@@ -305,7 +307,23 @@ if (_boton != null) {
 }
 function valida() {
     var Creador = ConfiguradorGeneral.dameCreador();
-    var ValidadorMineral = ConfiguradorGeneral.dameValidador();
+    //let ValidadorMineral: IValidable = ConfiguradorGeneral.dameValidador();
+    var ValidadorMineral;
+    var _validador = document.getElementById("validador").value;
+    switch (_validador) {
+        case "Ígneas": {
+            ValidadorMineral = new ValidadorIgneas();
+            break;
+        }
+        case "Metamórfica": {
+            ValidadorMineral = new ValidadorMetamorficas();
+            break;
+        }
+        case "Sedimentaria": {
+            ValidadorMineral = new ValidadorSedimentaria();
+            break;
+        }
+    }
     var Mostrador = ConfiguradorGeneral.dameMostrador();
     var MiMineral = Creador.dameMineral();
     var _verde = document.getElementById("verde");

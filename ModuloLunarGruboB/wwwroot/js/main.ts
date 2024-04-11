@@ -16,7 +16,7 @@ class Mineral {
 interface IConfigurable {
     dameGenerador(): IGeneraHTML;
     dameCreador(): IMinerable;
-    dameValidador(): IValidable;
+    //dameValidador(): IValidable;
     dameMostrador(): IMuestra;
 }
 
@@ -27,9 +27,9 @@ class configuradorEspanolPC implements IConfigurable {
     dameCreador(): IMinerable {
         return new CreadorHTML();
     }
-    dameValidador(): IValidable {
-        return new ValidadorIgneas();
-    }
+    //dameValidador(): IValidable {
+    //    return new ValidadorIgneas();
+    //}
     dameMostrador(): IMuestra {
         return new MuestraHTMLEuropeo();
     }
@@ -41,9 +41,9 @@ class configuradorEspanolMovil implements IConfigurable {
     dameCreador(): IMinerable {
         return new CreadorHTML();
     }
-    dameValidador(): IValidable {
-        return new ValidadorIgneas();
-    }
+    //dameValidador(): IValidable {
+    //    return new ValidadorIgneas();
+    //}
     dameMostrador(): IMuestra {
         return new MuestraHTMLEuropeo();
     }
@@ -56,9 +56,9 @@ class configuradorInglesPC implements IConfigurable {
     dameCreador(): IMinerable {
         return new CreadorHTML();
     }
-    dameValidador(): IValidable {
-        return new ValidadorMetamorficas();
-    }
+    //dameValidador(): IValidable {
+    //    return new ValidadorMetamorficas();
+    //}
     dameMostrador(): IMuestra {
         return new MuestraHTMLAmericano();
     }
@@ -71,9 +71,9 @@ class configuradorInglesMovil implements IConfigurable {
     dameCreador(): IMinerable {
         return new CreadorHTML();
     }
-    dameValidador(): IValidable {
-        return new ValidadorSedimentaria();
-    }
+    //dameValidador(): IValidable {
+    //    return new ValidadorSedimentaria();
+    //}
     dameMostrador(): IMuestra {
         return new MuestraHTMLAmericano();
     }
@@ -187,6 +187,7 @@ class GenerarHTMLEspanol implements IGeneraHTML {
         let contenido = this.g.dameCss();
         contenido += this.g.dameDiv("formulario");
         contenido += "<br />";
+        contenido += this.g.dameComboBox("validador", "Validador", ["Ígneas", "Metamórfica", "Sedimentaria"]);
         contenido += this.g.dameTextBox("idMineral", "Identificativo");
         contenido += this.g.dameTextBox("nombre", "Nombre");
         contenido += this.g.dameComboBox("grupo_origen", "Grupo/Origen", ["Ígneas", "Metamórfica", "Sedimentaria"]);
@@ -212,6 +213,7 @@ class GenerarHTMLIngles implements IGeneraHTML {
         let contenido = this.g.dameCss();
         contenido += this.g.dameDiv("formulario");
         contenido += "<br />";
+        contenido += this.g.dameComboBox("validador", "Validador", ["Ígneas", "Metamórfica", "Sedimentaria"]);
         contenido += this.g.dameTextBox("idMineral", "Identifier");
         contenido += this.g.dameTextBox("nombre", "Name");
         contenido += this.g.dameComboBox("grupo_origen", "Group/Origin", ["Ígneas", "Metamórfica", "Sedimentaria"]);
@@ -365,7 +367,23 @@ if (_boton != null) {
 function valida() {
 
     let Creador: IMinerable = ConfiguradorGeneral.dameCreador();
-    let ValidadorMineral: IValidable = ConfiguradorGeneral.dameValidador();
+    //let ValidadorMineral: IValidable = ConfiguradorGeneral.dameValidador();
+    let ValidadorMineral: IValidable;
+    let _validador = (<HTMLInputElement>document.getElementById("validador")).value;
+    switch (_validador) {
+        case "Ígneas": {
+            ValidadorMineral = new ValidadorIgneas();
+            break;
+        }
+        case "Metamórfica": {
+            ValidadorMineral = new ValidadorMetamorficas();
+            break;
+        }
+        case "Sedimentaria": {
+            ValidadorMineral = new ValidadorSedimentaria();
+            break;
+        }
+    }
     let Mostrador: IMuestra = ConfiguradorGeneral.dameMostrador();
 
     let MiMineral = Creador.dameMineral();
