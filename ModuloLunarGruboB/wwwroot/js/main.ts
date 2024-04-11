@@ -48,7 +48,7 @@ class configurador implements IConfigurable {
     //    return new ValidadorIgneas();
     //}
     dameMostrador(): IMuestra {
-        return new MuestraHTMLEuropeo();
+        return new MuestraHTML();
     }
 }
 //class configuradorEspanolMovil implements IConfigurable {
@@ -255,37 +255,52 @@ interface IMuestra {
     dameContenido(MiMineral: Mineral): String;
 }
 
-class MuestraHTMLAmericano implements IMuestra {
+class MuestraHTML implements IMuestra {
     dameContenido(MiMineral: Mineral): String {
-        return (`<p>Identifier: ${MiMineral.idMineral} </p> 
-                 <p>Name: ${MiMineral.nombre} </p> 
-                 <p>Group/Origin: ${MiMineral.grupo_origen} </p> 
-                 <p>Hardness: ${MiMineral.dureza} </p> 
-                 <p>Grain Size: ${MiMineral.tam_grano} </p> 
-                 <p>Sort: ${MiMineral.clasificacion} </p> 
-                 <p>Crystal Size: ${MiMineral.tam_cristales} </p> 
-                 <p>Formation Temperature: ${ ((MiMineral.temp_formacion - 273.15) * 9) / 5 + 32} °F </p> 
-                 <p>Structure: ${MiMineral.estructura} </p> 
-                 <p>Forms Grains: ${MiMineral.forma_granos} </p> 
-                 <p>Texture: ${MiMineral.textura} </p>    `);
-    }
-}
-
-class MuestraHTMLEuropeo implements IMuestra {
-    dameContenido(MiMineral: Mineral): String {
-        return (`<p>Identificador: ${MiMineral.idMineral} </p> 
+        if (navigator.language == "es-ES") {
+            return (`<p>Identificador: ${MiMineral.idMineral} </p> 
                  <p>Nombre: ${MiMineral.nombre} </p> 
                  <p>Grupo/Origen: ${MiMineral.grupo_origen} </p> 
                  <p>Dureza: ${MiMineral.dureza} </p> 
                  <p>Tamaño Grano: ${MiMineral.tam_grano} mm </p> 
                  <p>Clasificación: ${MiMineral.clasificacion} </p> 
                  <p>Tamaño Cristales: ${MiMineral.tam_cristales} </p>
-                 <p>Temperatura Formacion: ${ (MiMineral.temp_formacion - 273.15)} °C </p> 
+                 <p>Temperatura Formacion: ${(MiMineral.temp_formacion - 273.15)} °C </p> 
                  <p>Estructura: ${MiMineral.estructura} </p> 
                  <p>Forma Granos: ${MiMineral.forma_granos} </p>
                  <p>Textura: ${MiMineral.textura} </p> `);
-    }
+        } else {
+            return (`<p>Identifier: ${MiMineral.idMineral} </p> 
+                 <p>Name: ${MiMineral.nombre} </p> 
+                 <p>Group/Origin: ${MiMineral.grupo_origen} </p> 
+                 <p>Hardness: ${MiMineral.dureza} </p> 
+                 <p>Grain Size: ${MiMineral.tam_grano} </p> 
+                 <p>Sort: ${MiMineral.clasificacion} </p> 
+                 <p>Crystal Size: ${MiMineral.tam_cristales} </p> 
+                 <p>Formation Temperature: ${((MiMineral.temp_formacion - 273.15) * 9) / 5 + 32} °F </p> 
+                 <p>Structure: ${MiMineral.estructura} </p> 
+                 <p>Forms Grains: ${MiMineral.forma_granos} </p> 
+                 <p>Texture: ${MiMineral.textura} </p>    `);
+        }
+        }
+    
 }
+
+//class MuestraHTMLEuropeo implements IMuestra {
+//    dameContenido(MiMineral: Mineral): String {
+//        return (`<p>Identificador: ${MiMineral.idMineral} </p> 
+//                 <p>Nombre: ${MiMineral.nombre} </p> 
+//                 <p>Grupo/Origen: ${MiMineral.grupo_origen} </p> 
+//                 <p>Dureza: ${MiMineral.dureza} </p> 
+//                 <p>Tamaño Grano: ${MiMineral.tam_grano} mm </p> 
+//                 <p>Clasificación: ${MiMineral.clasificacion} </p> 
+//                 <p>Tamaño Cristales: ${MiMineral.tam_cristales} </p>
+//                 <p>Temperatura Formacion: ${ (MiMineral.temp_formacion - 273.15)} °C </p> 
+//                 <p>Estructura: ${MiMineral.estructura} </p> 
+//                 <p>Forma Granos: ${MiMineral.forma_granos} </p>
+//                 <p>Textura: ${MiMineral.textura} </p> `);
+//    }
+//}
 
 
 interface IValidable {

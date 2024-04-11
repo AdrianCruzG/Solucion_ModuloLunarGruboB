@@ -41,7 +41,7 @@ var configurador = /** @class */ (function () {
     //    return new ValidadorIgneas();
     //}
     configurador.prototype.dameMostrador = function () {
-        return new MuestraHTMLEuropeo();
+        return new MuestraHTML();
     };
     return configurador;
 }());
@@ -165,21 +165,18 @@ var GenerarHTMLIngles = /** @class */ (function () {
     };
     return GenerarHTMLIngles;
 }());
-var MuestraHTMLAmericano = /** @class */ (function () {
-    function MuestraHTMLAmericano() {
+var MuestraHTML = /** @class */ (function () {
+    function MuestraHTML() {
     }
-    MuestraHTMLAmericano.prototype.dameContenido = function (MiMineral) {
-        return ("<p>Identifier: ".concat(MiMineral.idMineral, " </p> \n                 <p>Name: ").concat(MiMineral.nombre, " </p> \n                 <p>Group/Origin: ").concat(MiMineral.grupo_origen, " </p> \n                 <p>Hardness: ").concat(MiMineral.dureza, " </p> \n                 <p>Grain Size: ").concat(MiMineral.tam_grano, " </p> \n                 <p>Sort: ").concat(MiMineral.clasificacion, " </p> \n                 <p>Crystal Size: ").concat(MiMineral.tam_cristales, " </p> \n                 <p>Formation Temperature: ").concat(((MiMineral.temp_formacion - 273.15) * 9) / 5 + 32, " \u00B0F </p> \n                 <p>Structure: ").concat(MiMineral.estructura, " </p> \n                 <p>Forms Grains: ").concat(MiMineral.forma_granos, " </p> \n                 <p>Texture: ").concat(MiMineral.textura, " </p>    "));
+    MuestraHTML.prototype.dameContenido = function (MiMineral) {
+        if (navigator.language == "es-ES") {
+            return ("<p>Identificador: ".concat(MiMineral.idMineral, " </p> \n                 <p>Nombre: ").concat(MiMineral.nombre, " </p> \n                 <p>Grupo/Origen: ").concat(MiMineral.grupo_origen, " </p> \n                 <p>Dureza: ").concat(MiMineral.dureza, " </p> \n                 <p>Tama\u00F1o Grano: ").concat(MiMineral.tam_grano, " mm </p> \n                 <p>Clasificaci\u00F3n: ").concat(MiMineral.clasificacion, " </p> \n                 <p>Tama\u00F1o Cristales: ").concat(MiMineral.tam_cristales, " </p>\n                 <p>Temperatura Formacion: ").concat((MiMineral.temp_formacion - 273.15), " \u00B0C </p> \n                 <p>Estructura: ").concat(MiMineral.estructura, " </p> \n                 <p>Forma Granos: ").concat(MiMineral.forma_granos, " </p>\n                 <p>Textura: ").concat(MiMineral.textura, " </p> "));
+        }
+        else {
+            return ("<p>Identifier: ".concat(MiMineral.idMineral, " </p> \n                 <p>Name: ").concat(MiMineral.nombre, " </p> \n                 <p>Group/Origin: ").concat(MiMineral.grupo_origen, " </p> \n                 <p>Hardness: ").concat(MiMineral.dureza, " </p> \n                 <p>Grain Size: ").concat(MiMineral.tam_grano, " </p> \n                 <p>Sort: ").concat(MiMineral.clasificacion, " </p> \n                 <p>Crystal Size: ").concat(MiMineral.tam_cristales, " </p> \n                 <p>Formation Temperature: ").concat(((MiMineral.temp_formacion - 273.15) * 9) / 5 + 32, " \u00B0F </p> \n                 <p>Structure: ").concat(MiMineral.estructura, " </p> \n                 <p>Forms Grains: ").concat(MiMineral.forma_granos, " </p> \n                 <p>Texture: ").concat(MiMineral.textura, " </p>    "));
+        }
     };
-    return MuestraHTMLAmericano;
-}());
-var MuestraHTMLEuropeo = /** @class */ (function () {
-    function MuestraHTMLEuropeo() {
-    }
-    MuestraHTMLEuropeo.prototype.dameContenido = function (MiMineral) {
-        return ("<p>Identificador: ".concat(MiMineral.idMineral, " </p> \n                 <p>Nombre: ").concat(MiMineral.nombre, " </p> \n                 <p>Grupo/Origen: ").concat(MiMineral.grupo_origen, " </p> \n                 <p>Dureza: ").concat(MiMineral.dureza, " </p> \n                 <p>Tama\u00F1o Grano: ").concat(MiMineral.tam_grano, " mm </p> \n                 <p>Clasificaci\u00F3n: ").concat(MiMineral.clasificacion, " </p> \n                 <p>Tama\u00F1o Cristales: ").concat(MiMineral.tam_cristales, " </p>\n                 <p>Temperatura Formacion: ").concat((MiMineral.temp_formacion - 273.15), " \u00B0C </p> \n                 <p>Estructura: ").concat(MiMineral.estructura, " </p> \n                 <p>Forma Granos: ").concat(MiMineral.forma_granos, " </p>\n                 <p>Textura: ").concat(MiMineral.textura, " </p> "));
-    };
-    return MuestraHTMLEuropeo;
+    return MuestraHTML;
 }());
 var ValidadorIgneas = /** @class */ (function () {
     function ValidadorIgneas() {
