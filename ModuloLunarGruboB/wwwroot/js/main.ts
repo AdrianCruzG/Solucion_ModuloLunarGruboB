@@ -1,3 +1,7 @@
+
+
+console.log(navigator.language);
+
 class Mineral {
     idMineral: string = "";
     nombre: string = "";
@@ -20,9 +24,22 @@ interface IConfigurable {
     dameMostrador(): IMuestra;
 }
 
-class configuradorEspanolPC implements IConfigurable {
+class configurador implements IConfigurable {
     dameGenerador(): IGeneraHTML {
-        return new GenerarHTMLEspanol(new HTMLBootStrapPC());
+        let pantalla = screen.width;
+        let dispositivo: ILibreriaHTML;
+        if (pantalla < 1024) {
+            dispositivo = new HTMLBootStrapMovil();
+        } else {
+            dispositivo = new HTMLBootStrapPC();
+        }
+
+        if (navigator.language == "es-ES") {
+            return new GenerarHTMLEspanol(dispositivo);
+        } else {
+            return new GenerarHTMLIngles(dispositivo);
+        }
+
     }
     dameCreador(): IMinerable {
         return new CreadorHTML();
@@ -34,50 +51,50 @@ class configuradorEspanolPC implements IConfigurable {
         return new MuestraHTMLEuropeo();
     }
 }
-class configuradorEspanolMovil implements IConfigurable {
-    dameGenerador(): IGeneraHTML {
-        return new GenerarHTMLEspanol(new HTMLBootStrapMovil());
-    }
-    dameCreador(): IMinerable {
-        return new CreadorHTML();
-    }
-    //dameValidador(): IValidable {
-    //    return new ValidadorIgneas();
-    //}
-    dameMostrador(): IMuestra {
-        return new MuestraHTMLEuropeo();
-    }
-}
+//class configuradorEspanolMovil implements IConfigurable {
+//    dameGenerador(): IGeneraHTML {
+//        return new GenerarHTMLEspanol(new HTMLBootStrapMovil());
+//    }
+//    dameCreador(): IMinerable {
+//        return new CreadorHTML();
+//    }
+//    //dameValidador(): IValidable {
+//    //    return new ValidadorIgneas();
+//    //}
+//    dameMostrador(): IMuestra {
+//        return new MuestraHTMLEuropeo();
+//    }
+//}
 
-class configuradorInglesPC implements IConfigurable {
-    dameGenerador(): IGeneraHTML {
-        return new GenerarHTMLIngles(new HTMLBootStrapPC());
-    }
-    dameCreador(): IMinerable {
-        return new CreadorHTML();
-    }
-    //dameValidador(): IValidable {
-    //    return new ValidadorMetamorficas();
-    //}
-    dameMostrador(): IMuestra {
-        return new MuestraHTMLAmericano();
-    }
-}
+//class configuradorInglesPC implements IConfigurable {
+//    dameGenerador(): IGeneraHTML {
+//        return new GenerarHTMLIngles(new HTMLBootStrapPC());
+//    }
+//    dameCreador(): IMinerable {
+//        return new CreadorHTML();
+//    }
+//    //dameValidador(): IValidable {
+//    //    return new ValidadorMetamorficas();
+//    //}
+//    dameMostrador(): IMuestra {
+//        return new MuestraHTMLAmericano();
+//    }
+//}
 
-class configuradorInglesMovil implements IConfigurable {
-    dameGenerador(): IGeneraHTML {
-        return new GenerarHTMLIngles(new HTMLBootStrapMovil());
-    }
-    dameCreador(): IMinerable {
-        return new CreadorHTML();
-    }
-    //dameValidador(): IValidable {
-    //    return new ValidadorSedimentaria();
-    //}
-    dameMostrador(): IMuestra {
-        return new MuestraHTMLAmericano();
-    }
-}
+//class configuradorInglesMovil implements IConfigurable {
+//    dameGenerador(): IGeneraHTML {
+//        return new GenerarHTMLIngles(new HTMLBootStrapMovil());
+//    }
+//    dameCreador(): IMinerable {
+//        return new CreadorHTML();
+//    }
+//    //dameValidador(): IValidable {
+//    //    return new ValidadorSedimentaria();
+//    //}
+//    dameMostrador(): IMuestra {
+//        return new MuestraHTMLAmericano();
+//    }
+/*}*/
 
 interface ILibreriaHTML {
     dameCss(): string;
@@ -88,6 +105,7 @@ interface ILibreriaHTML {
     dameComboBox(id: string, etiqueta: string, opciones: string[]): string;
     dameTextArea(id: string, etiqueta: string, filas: number): string;
     dameBoton(id: string, texto: string): string;
+   // dameParrafoEuropeo(texto: string):string;
 }
 class HTMLBootStrapPC implements ILibreriaHTML {
     public dameCss(): string {
@@ -239,33 +257,33 @@ interface IMuestra {
 
 class MuestraHTMLAmericano implements IMuestra {
     dameContenido(MiMineral: Mineral): String {
-        return (`<p>Identifier: ${MiMineral.idMineral} </p> <br/>
-                 <p>Name: ${MiMineral.nombre} </p> <br/>
-                 <p>Group/Origin: ${MiMineral.grupo_origen} </p> <br/>
-                 <p>Hardness: ${MiMineral.dureza} </p> <br/>
-                 <p>Grain Size: ${MiMineral.tam_grano} </p> <br/>
-                 <p>Sort: ${MiMineral.clasificacion} </p> <br/>
-                 <p>Crystal Size: ${MiMineral.tam_cristales} </p> <br/> 
-                 <p>Formation Temperature: ${ ((MiMineral.temp_formacion - 273.15) * 9) / 5 + 32} °F </p> <br/> 
-                 <p>Structure: ${MiMineral.estructura} </p> <br/> 
-                 <p>Forms Grains: ${MiMineral.forma_granos} </p> <br/> 
-                 <p>Texture: ${MiMineral.textura} </p> <br/>   `);
+        return (`<p>Identifier: ${MiMineral.idMineral} </p> 
+                 <p>Name: ${MiMineral.nombre} </p> 
+                 <p>Group/Origin: ${MiMineral.grupo_origen} </p> 
+                 <p>Hardness: ${MiMineral.dureza} </p> 
+                 <p>Grain Size: ${MiMineral.tam_grano} </p> 
+                 <p>Sort: ${MiMineral.clasificacion} </p> 
+                 <p>Crystal Size: ${MiMineral.tam_cristales} </p> 
+                 <p>Formation Temperature: ${ ((MiMineral.temp_formacion - 273.15) * 9) / 5 + 32} °F </p> 
+                 <p>Structure: ${MiMineral.estructura} </p> 
+                 <p>Forms Grains: ${MiMineral.forma_granos} </p> 
+                 <p>Texture: ${MiMineral.textura} </p>    `);
     }
 }
 
 class MuestraHTMLEuropeo implements IMuestra {
     dameContenido(MiMineral: Mineral): String {
-        return (`<p>Identificador: ${MiMineral.idMineral} </p> <br/>
-                 <p>Nombre: ${MiMineral.nombre} </p> <br/>
-                 <p>Grupo/Origen: ${MiMineral.grupo_origen} </p> <br/>
-                 <p>Dureza: ${MiMineral.dureza} </p> <br/>
-                 <p>Tamaño Grano: ${MiMineral.tam_grano} mm </p> <br/>
-                 <p>Clasificación: ${MiMineral.clasificacion} </p> <br/>
-                 <p>Tamaño Cristales: ${MiMineral.tam_cristales} </p> <br/> 
-                 <p>Temperatura Formacion: ${ (MiMineral.temp_formacion - 273.15)} °C </p> <br/> 
-                 <p>Estructura: ${MiMineral.estructura} </p> <br/> 
-                 <p>Forma Granos: ${MiMineral.forma_granos} </p> <br/> 
-                 <p>Textura: ${MiMineral.textura} </p> <br/> `);
+        return (`<p>Identificador: ${MiMineral.idMineral} </p> 
+                 <p>Nombre: ${MiMineral.nombre} </p> 
+                 <p>Grupo/Origen: ${MiMineral.grupo_origen} </p> 
+                 <p>Dureza: ${MiMineral.dureza} </p> 
+                 <p>Tamaño Grano: ${MiMineral.tam_grano} mm </p> 
+                 <p>Clasificación: ${MiMineral.clasificacion} </p> 
+                 <p>Tamaño Cristales: ${MiMineral.tam_cristales} </p>
+                 <p>Temperatura Formacion: ${ (MiMineral.temp_formacion - 273.15)} °C </p> 
+                 <p>Estructura: ${MiMineral.estructura} </p> 
+                 <p>Forma Granos: ${MiMineral.forma_granos} </p>
+                 <p>Textura: ${MiMineral.textura} </p> `);
     }
 }
 
@@ -353,7 +371,9 @@ class CreadorHTML implements IMinerable {
     }
 }
 
-let ConfiguradorGeneral: IConfigurable = new configuradorEspanolPC();
+console.log(screen.width);
+
+let ConfiguradorGeneral: IConfigurable = new configurador();
 let GeneradorHTML: IGeneraHTML = ConfiguradorGeneral.dameGenerador();
 let _formulario = document.getElementById("ventanaFormulario");
 if (_formulario != null) {
