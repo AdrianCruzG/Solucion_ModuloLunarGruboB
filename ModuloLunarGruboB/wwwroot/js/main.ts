@@ -1,6 +1,12 @@
 
-
+console.log(screen.width);
 console.log(navigator.language);
+if (navigator.language.indexOf("-") >= 0) {
+    console.log(navigator.language.slice(0, navigator.language.indexOf("-")));
+}
+else {
+    console.log(navigator.language);
+}
 
 class Mineral {
     idMineral: string = "";
@@ -24,9 +30,16 @@ interface IConfigurable {
     dameMostrador(): IMuestra;
 }
 
-class configurador implements IConfigurable {
+class Configurador implements IConfigurable {
     dameGenerador(): IGeneraHTML {
         let pantalla = screen.width;
+        let idioma = "";
+        if (navigator.language.indexOf("-") >= 0) {
+            idioma = navigator.language.slice(0, navigator.language.indexOf("-"));
+        }
+        else {
+            idioma = navigator.language;
+        }
         let dispositivo: ILibreriaHTML;
         if (pantalla < 1024) {
             dispositivo = new HTMLBootStrapMovil();
@@ -34,7 +47,7 @@ class configurador implements IConfigurable {
             dispositivo = new HTMLBootStrapPC();
         }
 
-        if (navigator.language == "es-ES") {
+        if (idioma == "es") {
             return new GenerarHTMLEspanol(dispositivo);
         } else {
             return new GenerarHTMLIngles(dispositivo);
@@ -51,7 +64,7 @@ class configurador implements IConfigurable {
         return new MuestraHTML();
     }
 }
-//class configuradorEspanolMovil implements IConfigurable {
+//class ConfiguradorEspanolMovil implements IConfigurable {
 //    dameGenerador(): IGeneraHTML {
 //        return new GenerarHTMLEspanol(new HTMLBootStrapMovil());
 //    }
@@ -66,7 +79,7 @@ class configurador implements IConfigurable {
 //    }
 //}
 
-//class configuradorInglesPC implements IConfigurable {
+//class ConfiguradorInglesPC implements IConfigurable {
 //    dameGenerador(): IGeneraHTML {
 //        return new GenerarHTMLIngles(new HTMLBootStrapPC());
 //    }
@@ -81,7 +94,7 @@ class configurador implements IConfigurable {
 //    }
 //}
 
-//class configuradorInglesMovil implements IConfigurable {
+//class ConfiguradorInglesMovil implements IConfigurable {
 //    dameGenerador(): IGeneraHTML {
 //        return new GenerarHTMLIngles(new HTMLBootStrapMovil());
 //    }
@@ -94,7 +107,7 @@ class configurador implements IConfigurable {
 //    dameMostrador(): IMuestra {
 //        return new MuestraHTMLAmericano();
 //    }
-/*}*/
+//}
 
 interface ILibreriaHTML {
     dameCss(): string;
@@ -105,7 +118,7 @@ interface ILibreriaHTML {
     dameComboBox(id: string, etiqueta: string, opciones: string[]): string;
     dameTextArea(id: string, etiqueta: string, filas: number): string;
     dameBoton(id: string, texto: string): string;
-   // dameParrafoEuropeo(texto: string):string;
+    // dameParrafoEuropeo(texto: string):string;
 }
 class HTMLBootStrapPC implements ILibreriaHTML {
     public dameCss(): string {
@@ -113,10 +126,10 @@ class HTMLBootStrapPC implements ILibreriaHTML {
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>`;
     }
     public dameDiv(id: string): string {
-        return (`<div id='${id}' class='container col-6 my-3 border border-dark bg-info bg-opacity-25 rounded-3'>`);
+        return (`<div id='${id}' class='container col-lg-6 col-md-12 col-sm-12 my-3 border border-dark bg-info bg-opacity-25 rounded-3'>`);
     }
     public dameCheckBox(id: string, etiqueta: string): string {
-    return `<div class="form-check form-switch mt-3">
+        return `<div class="form-check form-switch mt-3">
                 <input class="form-check-input" type="checkbox" id="${id}" checked>
                 <label class="form-check-label" for="${id}">${etiqueta}</label>
             </div>`;
@@ -155,18 +168,18 @@ class HTMLBootStrapPC implements ILibreriaHTML {
                     <input type="button" id="${id}" class="btn btn-primary my-3" value="${texto}" />
                 </div>`;
     }
-}class HTMLBootStrapMovil implements ILibreriaHTML {
+} class HTMLBootStrapMovil implements ILibreriaHTML {
     public dameCss(): string {
         return `<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>`;
     }
     public dameDiv(id: string): string {
-        return (`<div id='${id}' class='container col-3 my-3 border border-dark bg-info bg-opacity-25 rounded-3'>`);
+        return (`<div id='${id}' class='container col-lg-6 col-md-12 col-sm-12 my-3 border border-dark bg-info bg-opacity-25 rounded-3'>`);
     }
     public dameCheckBox(id: string, etiqueta: string): string {
-    return `<div class="form-check form-switch mt-3">
+        return `<div class="form-check form-switch mt-3">
                 <input class="form-check-input" type="checkbox" id="${id}" checked>
-                <label class="form-check-label" for="${id}">${etiqueta}</label>
+                <label class="form-check-label text-white text-bold" for="${id}">${etiqueta}</label>
             </div>`;
     }
     public dameTextBox(id: string, etiqueta: string): string {
@@ -176,7 +189,7 @@ class HTMLBootStrapPC implements ILibreriaHTML {
         return `<input type="number" class="form-control mb-3" id="${id}" min="${numMin}" max="${numMax}" placeholder="${etiqueta}" />`;
     }
     public dameComboBox(id: string, etiqueta: string, opciones: string[]): string {
-        let cadena = `<label for="${id}" class="form-label">${etiqueta}:</label>
+        let cadena = `<label for="${id}" class="form-label text-white text-bold">${etiqueta}:</label>
                       <select class="form-select mb-3" id="${id}">`;
         for (let i = 0; i < opciones.length; i++) {
             cadena += `<option value="${opciones[i]}">${opciones[i]}</option>`;
@@ -209,11 +222,11 @@ class GenerarHTMLEspanol implements IGeneraHTML {
         contenido += this.g.dameTextBox("idMineral", "Identificativo");
         contenido += this.g.dameTextBox("nombre", "Nombre");
         contenido += this.g.dameComboBox("grupo_origen", "Grupo/Origen", ["Ígneas", "Metamórfica", "Sedimentaria"]);
-        contenido += this.g.dameNumberBox("dureza", "Dureza",1, 10);
-        contenido += this.g.dameNumberBox("tam_grano", "Tamaño grano (mm)",0,1000);
+        contenido += this.g.dameNumberBox("dureza", "Dureza", 1, 10);
+        contenido += this.g.dameNumberBox("tam_grano", "Tamaño grano (mm)", 0, 1000);
         contenido += this.g.dameComboBox("clasificacion", "Clasificación", ["Rocas de construcción", "Rocas ornamentales", "Rocas de uso en utensilios", "Piedras machacadas"]);
-        contenido += this.g.dameNumberBox("tam_cristales", "Tamaño cristales",0,10);
-        contenido += this.g.dameNumberBox("temp_formacion", "Temperatura formación (°K)",-100,100);
+        contenido += this.g.dameNumberBox("tam_cristales", "Tamaño cristales", 0, 10);
+        contenido += this.g.dameNumberBox("temp_formacion", "Temperatura formación (°K)", -100, 100);
         contenido += this.g.dameTextArea("estructura", "Estructura", 3);
         contenido += this.g.dameTextArea("forma_granos", "Forma de los granos", 3);
         contenido += this.g.dameComboBox("textura", "Textura", ["Vítrea", "Afanítica", "Fanerítica"]);
@@ -235,11 +248,11 @@ class GenerarHTMLIngles implements IGeneraHTML {
         contenido += this.g.dameTextBox("idMineral", "Identifier");
         contenido += this.g.dameTextBox("nombre", "Name");
         contenido += this.g.dameComboBox("grupo_origen", "Group/Origin", ["Ígneas", "Metamórfica", "Sedimentaria"]);
-        contenido += this.g.dameNumberBox("dureza", "Hardness",1,10);
-        contenido += this.g.dameNumberBox("tam_grano", "Grain Size (mm)",0,1000);
+        contenido += this.g.dameNumberBox("dureza", "Hardness", 1, 10);
+        contenido += this.g.dameNumberBox("tam_grano", "Grain Size (mm)", 0, 1000);
         contenido += this.g.dameComboBox("clasificacion", "Sort", ["Rocas de construcción", "Rocas ornamentales", "Rocas de uso en utensilios", "Piedras machacadas"]);
-        contenido += this.g.dameNumberBox("tam_cristales", "Crystal Size",0,10);
-        contenido += this.g.dameNumberBox("temp_formacion", "Formation Temperature (°K)",-100,100);
+        contenido += this.g.dameNumberBox("tam_cristales", "Crystal Size", 0, 10);
+        contenido += this.g.dameNumberBox("temp_formacion", "Formation Temperature (°K)", -100, 100);
         contenido += this.g.dameTextArea("estructura", "Structure", 3);
         contenido += this.g.dameTextArea("forma_granos", "Forms Grains", 3);
         contenido += this.g.dameComboBox("textura", "Texture", ["Vítrea", "Afanítica", "Fanerítica"]);
@@ -257,7 +270,14 @@ interface IMuestra {
 
 class MuestraHTML implements IMuestra {
     dameContenido(MiMineral: Mineral): String {
-        if (navigator.language == "es-ES") {
+        let idioma = "";
+        if (navigator.language.indexOf("-") >= 0) {
+            idioma = navigator.language.slice(0, navigator.language.indexOf("-"));
+        }
+        else {
+            idioma = navigator.language;
+        }
+        if (idioma == "es") {
             return (`<p>Identificador: ${MiMineral.idMineral} </p> 
                  <p>Nombre: ${MiMineral.nombre} </p> 
                  <p>Grupo/Origen: ${MiMineral.grupo_origen} </p> 
@@ -282,8 +302,8 @@ class MuestraHTML implements IMuestra {
                  <p>Forms Grains: ${MiMineral.forma_granos} </p> 
                  <p>Texture: ${MiMineral.textura} </p>    `);
         }
-        }
-    
+    }
+
 }
 
 //class MuestraHTMLEuropeo implements IMuestra {
@@ -313,7 +333,7 @@ class ValidadorIgneas implements IValidable {
             (/[A-Z]{2}[0-9]{4}[A-Z]{2}/.test(MiMineral.idMineral)) &&
             MiMineral.grupo_origen == "Ígneas" &&
             MiMineral.tam_grano > 30);
-            
+
     }
 }
 
@@ -380,19 +400,18 @@ class CreadorHTML implements IMinerable {
     private dameValorNumero(elementoId: string): number {
         return Number(this.dameValorTexto(elementoId));
     }
-    
+
     private dameValorTexto(elementoId: string) {
         return (<HTMLInputElement>document.getElementById(elementoId)).value;
     }
 }
 
-console.log(screen.width);
 
-let ConfiguradorGeneral: IConfigurable = new configurador();
-let GeneradorHTML: IGeneraHTML = ConfiguradorGeneral.dameGenerador();
+let configuradorGeneral: IConfigurable = new Configurador();
+let generadorHTML: IGeneraHTML = configuradorGeneral.dameGenerador();
 let _formulario = document.getElementById("ventanaFormulario");
 if (_formulario != null) {
-    _formulario.innerHTML = GeneradorHTML.dameHTML().toString();
+    _formulario.innerHTML = generadorHTML.dameHTML().toString();
 }
 let _boton = document.getElementById("boton");
 if (_boton != null) {
@@ -401,33 +420,33 @@ if (_boton != null) {
 
 function valida() {
 
-    let Creador: IMinerable = ConfiguradorGeneral.dameCreador();
+    let creador: IMinerable = configuradorGeneral.dameCreador();
     //let ValidadorMineral: IValidable = ConfiguradorGeneral.dameValidador();
-    let ValidadorMineral: IValidable;
+    let validadorMineral: IValidable;
     let _validador = (<HTMLInputElement>document.getElementById("validador")).value;
     switch (_validador) {
         case "Ígneas": {
-            ValidadorMineral = new ValidadorIgneas();
+            validadorMineral = new ValidadorIgneas();
             break;
         }
         case "Metamórfica": {
-            ValidadorMineral = new ValidadorMetamorficas();
+            validadorMineral = new ValidadorMetamorficas();
             break;
         }
         case "Sedimentaria": {
-            ValidadorMineral = new ValidadorSedimentaria();
+            validadorMineral = new ValidadorSedimentaria();
             break;
         }
     }
-    let Mostrador: IMuestra = ConfiguradorGeneral.dameMostrador();
+    let mostrador: IMuestra = configuradorGeneral.dameMostrador();
 
-    let MiMineral = Creador.dameMineral();
+    let miMineral = creador.dameMineral();
     let _verde = document.getElementById("verde");
     let _rojo = document.getElementById("rojo");
-    if (ValidadorMineral.isValid(MiMineral)) {
+    if (validadorMineral.isValid(miMineral)) {
         if (_verde != null) {
             _verde.innerHTML = `<div class="text-center py-3"><img src="img/feliz.webp" width="100" /></div>`
-                                + Mostrador.dameContenido(MiMineral).toString();
+                + mostrador.dameContenido(miMineral).toString();
         }
         if (_rojo != null) {
             _rojo.innerHTML = "";
@@ -436,7 +455,7 @@ function valida() {
     else {
         if (_rojo != null) {
             _rojo.innerHTML = `<div class="text-center py-3"><img src="img/enfadado.png" width="100" /></div>`
-                               + Mostrador.dameContenido(MiMineral).toString();
+                + mostrador.dameContenido(miMineral).toString();
         }
         if (_verde != null) {
             _verde.innerHTML = "";
