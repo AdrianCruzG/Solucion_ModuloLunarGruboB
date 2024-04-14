@@ -1,10 +1,10 @@
-console.log(screen.width);
-console.log(navigator.language);
+var _anchoPantalla = screen.width;
+var _idiomaNavegador = "";
 if (navigator.language.indexOf("-") >= 0) {
-    console.log(navigator.language.slice(0, navigator.language.indexOf("-")));
+    _idiomaNavegador = navigator.language.slice(0, navigator.language.indexOf("-"));
 }
 else {
-    console.log(navigator.language);
+    _idiomaNavegador = navigator.language;
 }
 var Mineral = /** @class */ (function () {
     function Mineral() {
@@ -22,42 +22,40 @@ var Mineral = /** @class */ (function () {
     }
     return Mineral;
 }());
-var Configurador = /** @class */ (function () {
-    function Configurador() {
+var ConfiguradorAuto = /** @class */ (function () {
+    function ConfiguradorAuto() {
     }
-    Configurador.prototype.dameGenerador = function () {
-        var pantalla = screen.width;
-        var idioma = "";
-        if (navigator.language.indexOf("-") >= 0) {
-            idioma = navigator.language.slice(0, navigator.language.indexOf("-"));
-        }
-        else {
-            idioma = navigator.language;
-        }
+    ConfiguradorAuto.prototype.dameGenerador = function () {
         var dispositivo;
-        if (pantalla < 1024) {
+        var tipoDispositivo = "";
+        if (_anchoPantalla < 1024) {
             dispositivo = new HTMLBootStrapMovil();
         }
         else {
             dispositivo = new HTMLBootStrapPC();
         }
-        if (idioma == "es") {
+        if (_idiomaNavegador == "es") {
             return new GenerarHTMLEspanol(dispositivo);
         }
         else {
             return new GenerarHTMLIngles(dispositivo);
         }
     };
-    Configurador.prototype.dameCreador = function () {
+    ConfiguradorAuto.prototype.dameCreador = function () {
         return new CreadorHTML();
     };
     //dameValidador(): IValidable {
     //    return new ValidadorIgneas();
     //}
-    Configurador.prototype.dameMostrador = function () {
-        return new MuestraHTML();
+    ConfiguradorAuto.prototype.dameMostrador = function () {
+        if (_idiomaNavegador == "es") {
+            return new MuestraHTMLEspanol();
+        }
+        else {
+            return new MuestraHTMLIngles();
+        }
     };
-    return Configurador;
+    return ConfiguradorAuto;
 }());
 var HTMLBootStrapPC = /** @class */ (function () {
     function HTMLBootStrapPC() {
@@ -179,25 +177,21 @@ var GenerarHTMLIngles = /** @class */ (function () {
     };
     return GenerarHTMLIngles;
 }());
-var MuestraHTML = /** @class */ (function () {
-    function MuestraHTML() {
+var MuestraHTMLIngles = /** @class */ (function () {
+    function MuestraHTMLIngles() {
     }
-    MuestraHTML.prototype.dameContenido = function (MiMineral) {
-        var idioma = "";
-        if (navigator.language.indexOf("-") >= 0) {
-            idioma = navigator.language.slice(0, navigator.language.indexOf("-"));
-        }
-        else {
-            idioma = navigator.language;
-        }
-        if (idioma == "es") {
-            return ("<p>Identificador: ".concat(MiMineral.idMineral, " </p> \n                 <p>Nombre: ").concat(MiMineral.nombre, " </p> \n                 <p>Grupo/Origen: ").concat(MiMineral.grupo_origen, " </p> \n                 <p>Dureza: ").concat(MiMineral.dureza, " </p> \n                 <p>Tama\u00F1o Grano: ").concat(MiMineral.tam_grano, " mm </p> \n                 <p>Clasificaci\u00F3n: ").concat(MiMineral.clasificacion, " </p> \n                 <p>Tama\u00F1o Cristales: ").concat(MiMineral.tam_cristales, " </p>\n                 <p>Temperatura Formacion: ").concat((MiMineral.temp_formacion - 273.15), " \u00B0C </p> \n                 <p>Estructura: ").concat(MiMineral.estructura, " </p> \n                 <p>Forma Granos: ").concat(MiMineral.forma_granos, " </p>\n                 <p>Textura: ").concat(MiMineral.textura, " </p> "));
-        }
-        else {
-            return ("<p>Identifier: ".concat(MiMineral.idMineral, " </p> \n                 <p>Name: ").concat(MiMineral.nombre, " </p> \n                 <p>Group/Origin: ").concat(MiMineral.grupo_origen, " </p> \n                 <p>Hardness: ").concat(MiMineral.dureza, " </p> \n                 <p>Grain Size: ").concat(MiMineral.tam_grano, " </p> \n                 <p>Sort: ").concat(MiMineral.clasificacion, " </p> \n                 <p>Crystal Size: ").concat(MiMineral.tam_cristales, " </p> \n                 <p>Formation Temperature: ").concat(((MiMineral.temp_formacion - 273.15) * 9) / 5 + 32, " \u00B0F </p> \n                 <p>Structure: ").concat(MiMineral.estructura, " </p> \n                 <p>Forms Grains: ").concat(MiMineral.forma_granos, " </p> \n                 <p>Texture: ").concat(MiMineral.textura, " </p>    "));
-        }
+    MuestraHTMLIngles.prototype.dameContenido = function (MiMineral) {
+        return ("<p>Identifier: ".concat(MiMineral.idMineral, " </p> \n                <p>Name: ").concat(MiMineral.nombre, " </p> \n                <p>Group/Origin: ").concat(MiMineral.grupo_origen, " </p> \n                <p>Hardness: ").concat(MiMineral.dureza, " </p> \n                <p>Grain Size: ").concat(MiMineral.tam_grano, " </p> \n                <p>Sort: ").concat(MiMineral.clasificacion, " </p> \n                <p>Crystal Size: ").concat(MiMineral.tam_cristales, " </p> \n                <p>Formation Temperature: ").concat(((MiMineral.temp_formacion - 273.15) * 9) / 5 + 32, " \u00B0F </p> \n                <p>Structure: ").concat(MiMineral.estructura, " </p> \n                <p>Forms Grains: ").concat(MiMineral.forma_granos, " </p> \n                <p>Texture: ").concat(MiMineral.textura, " </p>    "));
     };
-    return MuestraHTML;
+    return MuestraHTMLIngles;
+}());
+var MuestraHTMLEspanol = /** @class */ (function () {
+    function MuestraHTMLEspanol() {
+    }
+    MuestraHTMLEspanol.prototype.dameContenido = function (MiMineral) {
+        return ("<p>Identificador: ".concat(MiMineral.idMineral, " </p> \n                 <p>Nombre: ").concat(MiMineral.nombre, " </p> \n                 <p>Grupo/Origen: ").concat(MiMineral.grupo_origen, " </p> \n                 <p>Dureza: ").concat(MiMineral.dureza, " </p> \n                 <p>Tama\u00F1o Grano: ").concat(MiMineral.tam_grano, " mm </p> \n                 <p>Clasificaci\u00F3n: ").concat(MiMineral.clasificacion, " </p> \n                 <p>Tama\u00F1o Cristales: ").concat(MiMineral.tam_cristales, " </p>\n                 <p>Temperatura Formacion: ").concat((MiMineral.temp_formacion - 273.15), " \u00B0C </p> \n                 <p>Estructura: ").concat(MiMineral.estructura, " </p> \n                 <p>Forma Granos: ").concat(MiMineral.forma_granos, " </p>\n                 <p>Textura: ").concat(MiMineral.textura, " </p> "));
+    };
+    return MuestraHTMLEspanol;
 }());
 var ValidadorIgneas = /** @class */ (function () {
     function ValidadorIgneas() {
@@ -276,8 +270,8 @@ var CreadorHTML = /** @class */ (function () {
     };
     return CreadorHTML;
 }());
-var configuradorGeneral = new Configurador();
-var generadorHTML = configuradorGeneral.dameGenerador();
+var configurador = new ConfiguradorAuto();
+var generadorHTML = configurador.dameGenerador();
 var _formulario = document.getElementById("ventanaFormulario");
 if (_formulario != null) {
     _formulario.innerHTML = generadorHTML.dameHTML().toString();
@@ -287,8 +281,8 @@ if (_boton != null) {
     _boton.addEventListener("click", valida);
 }
 function valida() {
-    var creador = configuradorGeneral.dameCreador();
-    //let ValidadorMineral: IValidable = ConfiguradorGeneral.dameValidador();
+    var creador = configurador.dameCreador();
+    //let ValidadorMineral: IValidable = ConfiguradorAuto.dameValidador();
     var validadorMineral;
     var _validador = document.getElementById("validador").value;
     switch (_validador) {
@@ -305,7 +299,7 @@ function valida() {
             break;
         }
     }
-    var mostrador = configuradorGeneral.dameMostrador();
+    var mostrador = configurador.dameMostrador();
     var miMineral = creador.dameMineral();
     var _verde = document.getElementById("verde");
     var _rojo = document.getElementById("rojo");

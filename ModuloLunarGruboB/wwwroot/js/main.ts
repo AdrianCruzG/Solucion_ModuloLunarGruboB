@@ -1,13 +1,12 @@
 
-console.log(screen.width);
-console.log(navigator.language);
+var _anchoPantalla = screen.width;
+var _idiomaNavegador = "";
 if (navigator.language.indexOf("-") >= 0) {
-    console.log(navigator.language.slice(0, navigator.language.indexOf("-")));
+    _idiomaNavegador = navigator.language.slice(0, navigator.language.indexOf("-"));
 }
 else {
-    console.log(navigator.language);
+    _idiomaNavegador = navigator.language;
 }
-
 class Mineral {
     idMineral: string = "";
     nombre: string = "";
@@ -21,38 +20,26 @@ class Mineral {
     forma_granos: string = "";
     textura: string = "";
 }
-
-
 interface IConfigurable {
     dameGenerador(): IGeneraHTML;
     dameCreador(): IMinerable;
     //dameValidador(): IValidable;
     dameMostrador(): IMuestra;
 }
-
-class Configurador implements IConfigurable {
+class ConfiguradorAuto implements IConfigurable {
     dameGenerador(): IGeneraHTML {
-        let pantalla = screen.width;
-        let idioma = "";
-        if (navigator.language.indexOf("-") >= 0) {
-            idioma = navigator.language.slice(0, navigator.language.indexOf("-"));
-        }
-        else {
-            idioma = navigator.language;
-        }
         let dispositivo: ILibreriaHTML;
-        if (pantalla < 1024) {
+        let tipoDispositivo = "";
+        if (_anchoPantalla < 1024) {
             dispositivo = new HTMLBootStrapMovil();
         } else {
             dispositivo = new HTMLBootStrapPC();
         }
-
-        if (idioma == "es") {
+        if (_idiomaNavegador == "es") {
             return new GenerarHTMLEspanol(dispositivo);
         } else {
             return new GenerarHTMLIngles(dispositivo);
         }
-
     }
     dameCreador(): IMinerable {
         return new CreadorHTML();
@@ -61,7 +48,12 @@ class Configurador implements IConfigurable {
     //    return new ValidadorIgneas();
     //}
     dameMostrador(): IMuestra {
-        return new MuestraHTML();
+        if (_idiomaNavegador == "es") {
+            return new MuestraHTMLEspanol();
+        }
+        else {
+            return new MuestraHTMLIngles();
+        }
     }
 }
 //class ConfiguradorEspanolMovil implements IConfigurable {
@@ -108,7 +100,6 @@ class Configurador implements IConfigurable {
 //        return new MuestraHTMLAmericano();
 //    }
 //}
-
 interface ILibreriaHTML {
     dameCss(): string;
     dameDiv(id: string): string;
@@ -261,72 +252,43 @@ class GenerarHTMLIngles implements IGeneraHTML {
         return contenido;
     }
 }
-
-
-
 interface IMuestra {
     dameContenido(MiMineral: Mineral): String;
 }
-
-class MuestraHTML implements IMuestra {
+class MuestraHTMLIngles implements IMuestra {
     dameContenido(MiMineral: Mineral): String {
-        let idioma = "";
-        if (navigator.language.indexOf("-") >= 0) {
-            idioma = navigator.language.slice(0, navigator.language.indexOf("-"));
-        }
-        else {
-            idioma = navigator.language;
-        }
-        if (idioma == "es") {
-            return (`<p>Identificador: ${MiMineral.idMineral} </p> 
+        return (`<p>Identifier: ${MiMineral.idMineral} </p> 
+                <p>Name: ${MiMineral.nombre} </p> 
+                <p>Group/Origin: ${MiMineral.grupo_origen} </p> 
+                <p>Hardness: ${MiMineral.dureza} </p> 
+                <p>Grain Size: ${MiMineral.tam_grano} </p> 
+                <p>Sort: ${MiMineral.clasificacion} </p> 
+                <p>Crystal Size: ${MiMineral.tam_cristales} </p> 
+                <p>Formation Temperature: ${((MiMineral.temp_formacion - 273.15) * 9) / 5 + 32} °F </p> 
+                <p>Structure: ${MiMineral.estructura} </p> 
+                <p>Forms Grains: ${MiMineral.forma_granos} </p> 
+                <p>Texture: ${MiMineral.textura} </p>    `);
+    }
+
+}
+class MuestraHTMLEspanol implements IMuestra {
+    dameContenido(MiMineral: Mineral): String {
+        return (`<p>Identificador: ${MiMineral.idMineral} </p> 
                  <p>Nombre: ${MiMineral.nombre} </p> 
                  <p>Grupo/Origen: ${MiMineral.grupo_origen} </p> 
                  <p>Dureza: ${MiMineral.dureza} </p> 
                  <p>Tamaño Grano: ${MiMineral.tam_grano} mm </p> 
                  <p>Clasificación: ${MiMineral.clasificacion} </p> 
                  <p>Tamaño Cristales: ${MiMineral.tam_cristales} </p>
-                 <p>Temperatura Formacion: ${(MiMineral.temp_formacion - 273.15)} °C </p> 
+                 <p>Temperatura Formacion: ${ (MiMineral.temp_formacion - 273.15)} °C </p> 
                  <p>Estructura: ${MiMineral.estructura} </p> 
                  <p>Forma Granos: ${MiMineral.forma_granos} </p>
                  <p>Textura: ${MiMineral.textura} </p> `);
-        } else {
-            return (`<p>Identifier: ${MiMineral.idMineral} </p> 
-                 <p>Name: ${MiMineral.nombre} </p> 
-                 <p>Group/Origin: ${MiMineral.grupo_origen} </p> 
-                 <p>Hardness: ${MiMineral.dureza} </p> 
-                 <p>Grain Size: ${MiMineral.tam_grano} </p> 
-                 <p>Sort: ${MiMineral.clasificacion} </p> 
-                 <p>Crystal Size: ${MiMineral.tam_cristales} </p> 
-                 <p>Formation Temperature: ${((MiMineral.temp_formacion - 273.15) * 9) / 5 + 32} °F </p> 
-                 <p>Structure: ${MiMineral.estructura} </p> 
-                 <p>Forms Grains: ${MiMineral.forma_granos} </p> 
-                 <p>Texture: ${MiMineral.textura} </p>    `);
-        }
     }
-
 }
-
-//class MuestraHTMLEuropeo implements IMuestra {
-//    dameContenido(MiMineral: Mineral): String {
-//        return (`<p>Identificador: ${MiMineral.idMineral} </p> 
-//                 <p>Nombre: ${MiMineral.nombre} </p> 
-//                 <p>Grupo/Origen: ${MiMineral.grupo_origen} </p> 
-//                 <p>Dureza: ${MiMineral.dureza} </p> 
-//                 <p>Tamaño Grano: ${MiMineral.tam_grano} mm </p> 
-//                 <p>Clasificación: ${MiMineral.clasificacion} </p> 
-//                 <p>Tamaño Cristales: ${MiMineral.tam_cristales} </p>
-//                 <p>Temperatura Formacion: ${ (MiMineral.temp_formacion - 273.15)} °C </p> 
-//                 <p>Estructura: ${MiMineral.estructura} </p> 
-//                 <p>Forma Granos: ${MiMineral.forma_granos} </p>
-//                 <p>Textura: ${MiMineral.textura} </p> `);
-//    }
-//}
-
-
 interface IValidable {
     isValid(MiMineral: Mineral): boolean;
 }
-
 class ValidadorIgneas implements IValidable {
     isValid(MiMineral: Mineral): boolean {
         return (
@@ -336,7 +298,6 @@ class ValidadorIgneas implements IValidable {
 
     }
 }
-
 class ValidadorMetamorficas implements IValidable {
     isValid(MiMineral: Mineral): boolean {
         return (
@@ -347,7 +308,6 @@ class ValidadorMetamorficas implements IValidable {
         );
     }
 }
-
 class ValidadorSedimentaria implements IValidable {
     isValid(MiMineral: Mineral): boolean {
         return (
@@ -357,11 +317,9 @@ class ValidadorSedimentaria implements IValidable {
         );
     }
 }
-
 interface IMinerable {
     dameMineral(): Mineral;
 }
-
 class CreadorManualMineral implements IMinerable {
     dameMineral(): Mineral {
         let MiMineral = new Mineral();
@@ -379,7 +337,6 @@ class CreadorManualMineral implements IMinerable {
         return MiMineral;
     }
 }
-
 class CreadorHTML implements IMinerable {
     dameMineral(): Mineral {
         let MiMineral: Mineral = new Mineral();
@@ -406,9 +363,8 @@ class CreadorHTML implements IMinerable {
     }
 }
 
-
-let configuradorGeneral: IConfigurable = new Configurador();
-let generadorHTML: IGeneraHTML = configuradorGeneral.dameGenerador();
+let configurador: IConfigurable = new ConfiguradorAuto();
+let generadorHTML: IGeneraHTML = configurador.dameGenerador();
 let _formulario = document.getElementById("ventanaFormulario");
 if (_formulario != null) {
     _formulario.innerHTML = generadorHTML.dameHTML().toString();
@@ -420,8 +376,8 @@ if (_boton != null) {
 
 function valida() {
 
-    let creador: IMinerable = configuradorGeneral.dameCreador();
-    //let ValidadorMineral: IValidable = ConfiguradorGeneral.dameValidador();
+    let creador: IMinerable = configurador.dameCreador();
+    //let ValidadorMineral: IValidable = ConfiguradorAuto.dameValidador();
     let validadorMineral: IValidable;
     let _validador = (<HTMLInputElement>document.getElementById("validador")).value;
     switch (_validador) {
@@ -438,7 +394,7 @@ function valida() {
             break;
         }
     }
-    let mostrador: IMuestra = configuradorGeneral.dameMostrador();
+    let mostrador: IMuestra = configurador.dameMostrador();
 
     let miMineral = creador.dameMineral();
     let _verde = document.getElementById("verde");
